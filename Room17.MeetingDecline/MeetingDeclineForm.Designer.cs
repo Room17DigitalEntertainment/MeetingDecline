@@ -55,6 +55,7 @@
             this.debugCheckBox.TabIndex = 3;
             this.debugCheckBox.Text = "Debug";
             this.debugCheckBox.UseVisualStyleBackColor = true;
+            this.debugCheckBox.CheckedChanged += new System.EventHandler(this.debugCheckBox_CheckedChanged);
             // 
             // linkLabel1
             // 

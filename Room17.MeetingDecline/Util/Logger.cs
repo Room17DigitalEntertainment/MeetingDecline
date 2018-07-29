@@ -2,7 +2,7 @@
 using System.IO;
 using System.Threading;
 
-namespace Room17.MeetingDecline.Utils
+namespace Room17.MeetingDecline.Util
 {
     public class Logger
     {

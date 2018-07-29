@@ -194,7 +194,7 @@
     <Compile Include="Ribbon.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="Util\Logger.cs" />
-    <Compile Include="Util\MeetingDeclineSetting.cs" />
+    <Compile Include="Util\MeetingDeclineRule.cs" />
     <EmbeddedResource Include="MeetingDeclineForm.resx">
       <DependentUpon>MeetingDeclineForm.cs</DependentUpon>
     </EmbeddedResource>

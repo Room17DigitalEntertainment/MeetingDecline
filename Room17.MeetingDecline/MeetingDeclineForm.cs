@@ -8,19 +8,22 @@ namespace Room17.MeetingDecline
 {
     public partial class MeetingDeclineForm : Form
     {
-        private IDictionary<string, MeetingDeclineSetting> Settings;
+        private IDictionary<string, MeetingDeclineRule> Rules;
 
         public MeetingDeclineForm()
         {
             InitializeComponent();
 
             // read settings
-            if (Properties.Settings.Default.MeetingDeclineSettings == null)
-                Properties.Settings.Default.MeetingDeclineSettings = new Dictionary<string, MeetingDeclineSetting>();
-            Settings = Properties.Settings.Default.MeetingDeclineSettings;
+            if (Properties.Settings.Default.MeetingDeclineRules == null)
+                Properties.Settings.Default.MeetingDeclineRules = new Dictionary<string, MeetingDeclineRule>();
+            Rules = Properties.Settings.Default.MeetingDeclineRules;
         }
 
-        // TODO: ask user for default behavior on folder add
+        // TODO: ask user for default behavior on folder add (autodecline it or ignore)
+        // TODO: choose between decline or tentative (default decline)
+        // TODO: send notification back or not (default not)
+        // TODO: send a message (default no message)
 
         /// <summary>
         /// Save configuration on item check/uncheck
@@ -31,9 +34,11 @@ namespace Room17.MeetingDecline
             if (!(checkBox.Value is MAPIFolder folder)) return;
 
             if (e.NewValue == CheckState.Checked)
-                Settings[folder.EntryID] = new MeetingDeclineSetting() { FolderEntryID = folder.EntryID };
+                Rules[folder.EntryID] = new MeetingDeclineRule()
+                // TODO: set fields from UI here
+                { IsActive = true, Message = null, Response = OlMeetingResponse.olMeetingDeclined, SendNotification = false };
             else
-                Settings.Remove(folder.EntryID);
+                Rules.Remove(folder.EntryID);
             Properties.Settings.Default.Save();
         }
 
@@ -46,7 +51,7 @@ namespace Room17.MeetingDecline
             MAPIFolder root = Globals.AddIn.Application.Session.DefaultStore.GetRootFolder();
             IEnumerable<MAPIFolder> allFolders = GetFolders(root);
 
-            // comfigure the list
+            // configure the list
             foldersListBox.DisplayMember = "Text";
             foldersListBox.ValueMember = "Value";
 
@@ -57,7 +62,7 @@ namespace Room17.MeetingDecline
             foreach (MAPIFolder folder in allFolders)
             {
                 // get folder setting and show it
-                if (Settings.ContainsKey(folder.EntryID))
+                if (Rules.ContainsKey(folder.EntryID))
                     foldersListBox.Items.Add(new CheckBoxEntry { Text = folder.Name, Value = folder }, true);
                 // else show folder without check
                 else
@@ -92,10 +97,17 @@ namespace Room17.MeetingDecline
         /// </summary>
         private void OK_Click(object sender, EventArgs e)
         {
+        }
+
+        /// <summary>
+        /// Handle debug checbok check event and save its state
+        /// </summary>
+        private void debugCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
             // save debug setting
             Properties.Settings.Default["Debug"] = debugCheckBox.Checked;
             // apply debug setting
-            Utils.Logger.DEBUG = debugCheckBox.Checked;
+            Util.Logger.DEBUG = debugCheckBox.Checked;
         }
     }
 

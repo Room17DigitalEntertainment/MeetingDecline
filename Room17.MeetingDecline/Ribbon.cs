@@ -53,7 +53,7 @@ namespace Room17.MeetingDecline
         public void OnButtonClick(Office.IRibbonControl control)
         {
             MeetingDeclineForm dialog = new MeetingDeclineForm();
-            DialogResult result = dialog.ShowDialog();
+            /*DialogResult result =*/ dialog.ShowDialog();
         }
 
         public Bitmap GetCustomImage(Office.IRibbonControl control) => Properties.Resources.MeetingDeclineIcon;
