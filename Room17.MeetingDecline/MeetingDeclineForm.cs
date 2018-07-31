@@ -124,23 +124,20 @@ namespace Room17.MeetingDecline
         /// </summary>
         private void OK_Click(object sender, EventArgs e)
         {
-            for (int i = 0; i < rulesTablePanel.RowCount; i++)
+            for (int i = 1; i < rulesTablePanel.RowCount; i++)
             {
-                for (int j = 1; j < rulesTablePanel.ColumnCount; j++) // ignore first column, aka the Label
-                {
-                    CheckBox enabledCheck = rulesTablePanel.GetControlFromPosition(i, j) as CheckBox;
-                    Panel panel = rulesTablePanel.GetControlFromPosition(i, j+1) as Panel;
-                    RadioButton declineButton = panel.Controls[0] as RadioButton;
-                    CheckBox sendCheck = rulesTablePanel.GetControlFromPosition(i, j+2) as CheckBox;
-                    MAPIFolder folder = enabledCheck.Tag as MAPIFolder;
+                CheckBox enabledCheck = rulesTablePanel.GetControlFromPosition(1, i) as CheckBox;
+                Panel panel = rulesTablePanel.GetControlFromPosition(2, i) as Panel;
+                RadioButton declineButton = panel.Controls[0] as RadioButton;
+                CheckBox sendCheck = rulesTablePanel.GetControlFromPosition(3, i) as CheckBox;
+                MAPIFolder folder = enabledCheck.Tag as MAPIFolder;
 
-                    Rules[folder.EntryID] = new MeetingDeclineRule() {
-                        IsActive = enabledCheck.Checked,
-                        Message = null,
-                        Response = declineButton.Checked ? OlMeetingResponse.olMeetingDeclined : OlMeetingResponse.olMeetingTentative,
-                        SendNotification = sendCheck.Checked
-                    };
-                }
+                Rules[folder.EntryID] = new MeetingDeclineRule() {
+                    IsActive = enabledCheck.Checked,
+                    Message = null,
+                    Response = declineButton.Checked ? OlMeetingResponse.olMeetingDeclined : OlMeetingResponse.olMeetingTentative,
+                    SendNotification = sendCheck.Checked
+                };
             }
 
             Properties.Settings.Default.Save();
