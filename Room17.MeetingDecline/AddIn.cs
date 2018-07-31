@@ -14,6 +14,7 @@ namespace Room17.MeetingDecline
     public partial class AddIn
     {
         private Folders DeletedItemsFolder;
+        internal static int[] SystemFoldersIDs;
 
         private void ThisAddIn_Startup(object sender, System.EventArgs e)
         {
@@ -24,6 +25,26 @@ namespace Room17.MeetingDecline
             Folder deletedItemsFolder = (Folder)Application.Session.GetDefaultFolder(OlDefaultFolders.olFolderDeletedItems);
             DeletedItemsFolder = deletedItemsFolder.Folders; // keep a reference at class level so it wont be GCed and event handler lost
             DeletedItemsFolder.FolderAdd += DeletedItems_FolderAdd;
+
+            // enumerate non user folder entry ids for later
+            Array systemFolders = Enum.GetValues(typeof(OlDefaultFolders));
+            string[] customFolders = new string[] { "Yammer Root", "Files", "Conversation History", "Social Activity Notifications", "Scheduled", "Quick Step Settings", "Archive", "Conversation Action Settings" };
+            SystemFoldersIDs = new int[systemFolders.Length + customFolders.Length];
+            int i;
+            for (i = 0; i < systemFolders.Length; i++)
+                try
+                {
+                    SystemFoldersIDs[i] = this.Application.Session.DefaultStore.GetDefaultFolder((OlDefaultFolders)systemFolders.GetValue(i))
+                        .EntryID.GetHashCode();
+                }
+                catch { } // not all folders from OlDefaultFolders exist in outlook
+            for (; i < customFolders.Length + systemFolders.Length; i++)
+                try
+                {
+                    SystemFoldersIDs[i] = this.Application.Session.DefaultStore.GetRootFolder()
+                        .Folders[customFolders[i - systemFolders.Length]].EntryID.GetHashCode();
+                }
+                catch { } // being a hardcoded list, we can't be 100% sure it always exists from app to app
         }
 
         /// <summary>

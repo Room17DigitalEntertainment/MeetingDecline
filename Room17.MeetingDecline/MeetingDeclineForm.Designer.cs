@@ -32,9 +32,9 @@
             this.label1 = new System.Windows.Forms.Label();
             this.debugCheckBox = new System.Windows.Forms.CheckBox();
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
-            this.foldersListBox = new System.Windows.Forms.CheckedListBox();
             this.okButton = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
+            this.cancelButton = new System.Windows.Forms.Button();
+            this.rulesTablePanel = new System.Windows.Forms.TableLayoutPanel();
             this.SuspendLayout();
             // 
             // label1
@@ -67,48 +67,59 @@
             this.linkLabel1.TabStop = true;
             this.linkLabel1.Text = "Debug logs";
             // 
-            // foldersListBox
-            // 
-            this.foldersListBox.FormattingEnabled = true;
-            this.foldersListBox.Location = new System.Drawing.Point(12, 47);
-            this.foldersListBox.Name = "foldersListBox";
-            this.foldersListBox.Size = new System.Drawing.Size(414, 466);
-            this.foldersListBox.TabIndex = 2;
-            // 
             // okButton
             // 
             this.okButton.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.okButton.Location = new System.Drawing.Point(258, 529);
+            this.okButton.Location = new System.Drawing.Point(527, 529);
             this.okButton.Name = "okButton";
-            this.okButton.Size = new System.Drawing.Size(75, 28);
+            this.okButton.Size = new System.Drawing.Size(108, 28);
             this.okButton.TabIndex = 5;
             this.okButton.Text = "OK";
             this.okButton.UseVisualStyleBackColor = true;
             this.okButton.Click += new System.EventHandler(this.OK_Click);
             // 
-            // button2
+            // cancelButton
             // 
-            this.button2.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.button2.Location = new System.Drawing.Point(351, 529);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 28);
-            this.button2.TabIndex = 6;
-            this.button2.Text = "Cancel";
-            this.button2.UseVisualStyleBackColor = true;
+            this.cancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.cancelButton.Location = new System.Drawing.Point(651, 529);
+            this.cancelButton.Name = "cancelButton";
+            this.cancelButton.Size = new System.Drawing.Size(107, 28);
+            this.cancelButton.TabIndex = 6;
+            this.cancelButton.Text = "Cancel";
+            this.cancelButton.UseVisualStyleBackColor = true;
+            // 
+            // rulesTablePanel
+            // 
+            this.rulesTablePanel.ColumnCount = 4;
+            this.rulesTablePanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 42F));
+            this.rulesTablePanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 13F));
+            this.rulesTablePanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.rulesTablePanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.rulesTablePanel.Location = new System.Drawing.Point(12, 48);
+            this.rulesTablePanel.Name = "rulesTablePanel";
+            this.rulesTablePanel.RowCount = 1;
+            this.rulesTablePanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.rulesTablePanel.Size = new System.Drawing.Size(834, 466);
+            this.rulesTablePanel.TabIndex = 8;
             // 
             // MeetingDeclineForm
             // 
+            this.AcceptButton = this.okButton;
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(438, 569);
-            this.Controls.Add(this.button2);
+            this.CancelButton = this.cancelButton;
+            this.ClientSize = new System.Drawing.Size(858, 569);
             this.Controls.Add(this.okButton);
+            this.Controls.Add(this.rulesTablePanel);
+            this.Controls.Add(this.cancelButton);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.debugCheckBox);
             this.Controls.Add(this.linkLabel1);
-            this.Controls.Add(this.foldersListBox);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
             this.Name = "MeetingDeclineForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Meeting Decline Settings";
             this.Load += new System.EventHandler(this.MeetingDeclinedForm_Load);
             this.ResumeLayout(false);
@@ -121,8 +132,8 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.CheckBox debugCheckBox;
         private System.Windows.Forms.LinkLabel linkLabel1;
-        private System.Windows.Forms.CheckedListBox foldersListBox;
         private System.Windows.Forms.Button okButton;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button cancelButton;
+        private System.Windows.Forms.TableLayoutPanel rulesTablePanel;
     }
 }
