@@ -92,15 +92,15 @@ namespace Room17.MeetingDecline
                     // if it's a Cancelation, delete it from calendar
                     if (meetingItem.Class == OlObjectClass.olMeetingCancellation)
                     {
-                        meetingItem.Delete();
-                        return;
+                        if (meetingItem.GetAssociatedAppointment(false) != null) { meetingItem.GetAssociatedAppointment(false).Delete(); return; }
+                        meetingItem.Delete(); return; // if deleted by user/app, delete the whole message
                     }
 
                     // get associated appointment
                     AppointmentItem appointment = meetingItem.GetAssociatedAppointment(false);
 
                     // optional, send notification back to sender
-                    appointment.ResponseRequested = rule.SendNotification;
+                    appointment.ResponseRequested &= rule.SendNotification;
 
                     // optional, add a meesage to the Body
                     if (!String.IsNullOrEmpty(rule.Message))
@@ -112,8 +112,11 @@ namespace Room17.MeetingDecline
                     // says that Respond() will return a new meeting object for Tentative response
 
                     // send decline
-                    (responseMeeting ?? meetingItem).Send(); 
-                    (responseMeeting ?? meetingItem).Delete();
+                    //if(rule.Response == OlMeetingResponse.olMeetingDeclined)
+                    (responseMeeting ?? meetingItem).Send();
+                    // and delete the appointment if tentative
+                    if (rule.Response == OlMeetingResponse.olMeetingTentative)
+                        appointment.Delete();
                 }
             }
         }
