@@ -182,11 +182,17 @@
     can be found.
   -->
   <ItemGroup>
-    <Compile Include="MeetingDeclineForm.cs">
+    <Compile Include="Forms\DeclineMessageForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="MeetingDeclineForm.Designer.cs">
-      <DependentUpon>MeetingDeclineForm.cs</DependentUpon>
+    <Compile Include="Forms\DeclineMessageForm.Designer.cs">
+      <DependentUpon>DeclineMessageForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\RulesForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\RulesForm.Designer.cs">
+      <DependentUpon>RulesForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
@@ -194,9 +200,12 @@
     <Compile Include="Ribbon.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="Util\Logger.cs" />
-    <Compile Include="Util\MeetingDeclineRule.cs" />
-    <EmbeddedResource Include="MeetingDeclineForm.resx">
-      <DependentUpon>MeetingDeclineForm.cs</DependentUpon>
+    <Compile Include="Util\DeclineRule.cs" />
+    <EmbeddedResource Include="Forms\DeclineMessageForm.resx">
+      <DependentUpon>DeclineMessageForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\RulesForm.resx">
+      <DependentUpon>RulesForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

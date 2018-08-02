@@ -1,6 +1,6 @@
-﻿namespace Room17.MeetingDecline
+﻿namespace Room17.Forms.MeetingDecline
 {
-    partial class MeetingDeclineForm
+    partial class RulesForm
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MeetingDeclineForm));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(RulesForm));
             this.label1 = new System.Windows.Forms.Label();
             this.debugCheckBox = new System.Windows.Forms.CheckBox();
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
@@ -55,7 +55,7 @@
             this.debugCheckBox.TabIndex = 3;
             this.debugCheckBox.Text = "Debug";
             this.debugCheckBox.UseVisualStyleBackColor = true;
-            this.debugCheckBox.CheckedChanged += new System.EventHandler(this.debugCheckBox_CheckedChanged);
+            this.debugCheckBox.CheckedChanged += new System.EventHandler(this.DebugCheckBox_CheckedChanged);
             // 
             // linkLabel1
             // 
@@ -70,9 +70,9 @@
             // okButton
             // 
             this.okButton.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.okButton.Location = new System.Drawing.Point(527, 529);
+            this.okButton.Location = new System.Drawing.Point(609, 526);
             this.okButton.Name = "okButton";
-            this.okButton.Size = new System.Drawing.Size(108, 28);
+            this.okButton.Size = new System.Drawing.Size(108, 34);
             this.okButton.TabIndex = 5;
             this.okButton.Text = "OK";
             this.okButton.UseVisualStyleBackColor = true;
@@ -81,20 +81,21 @@
             // cancelButton
             // 
             this.cancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.cancelButton.Location = new System.Drawing.Point(651, 529);
+            this.cancelButton.Location = new System.Drawing.Point(738, 526);
             this.cancelButton.Name = "cancelButton";
-            this.cancelButton.Size = new System.Drawing.Size(107, 28);
+            this.cancelButton.Size = new System.Drawing.Size(108, 34);
             this.cancelButton.TabIndex = 6;
             this.cancelButton.Text = "Cancel";
             this.cancelButton.UseVisualStyleBackColor = true;
             // 
             // rulesTablePanel
             // 
-            this.rulesTablePanel.ColumnCount = 4;
-            this.rulesTablePanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 42F));
+            this.rulesTablePanel.ColumnCount = 5;
+            this.rulesTablePanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 31F));
             this.rulesTablePanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 13F));
             this.rulesTablePanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.rulesTablePanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.rulesTablePanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 18F));
+            this.rulesTablePanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 13F));
             this.rulesTablePanel.Location = new System.Drawing.Point(12, 48);
             this.rulesTablePanel.Name = "rulesTablePanel";
             this.rulesTablePanel.RowCount = 1;
@@ -102,7 +103,7 @@
             this.rulesTablePanel.Size = new System.Drawing.Size(834, 466);
             this.rulesTablePanel.TabIndex = 8;
             // 
-            // MeetingDeclineForm
+            // RulesForm
             // 
             this.AcceptButton = this.okButton;
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -118,7 +119,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
-            this.Name = "MeetingDeclineForm";
+            this.Name = "RulesForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Meeting Decline Settings";
             this.Load += new System.EventHandler(this.MeetingDeclinedForm_Load);

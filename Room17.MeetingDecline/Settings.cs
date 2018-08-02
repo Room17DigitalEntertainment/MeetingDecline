@@ -24,9 +24,9 @@ namespace Room17.MeetingDecline.Properties {
         [UserScopedSetting]
         [SettingsSerializeAs(SettingsSerializeAs.Binary)]
         [DefaultSettingValue("")]
-        public IDictionary<string, MeetingDeclineRule> MeetingDeclineRules
+        public IDictionary<string, DeclineRule> MeetingDeclineRules
         {
-            get { return (IDictionary<string, MeetingDeclineRule>)this[nameof(MeetingDeclineRules)]; }
+            get { return (IDictionary<string, DeclineRule>)this[nameof(MeetingDeclineRules)]; }
             set { this[nameof(MeetingDeclineRules)] = value; }
         }
 

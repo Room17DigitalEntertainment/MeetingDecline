@@ -1,15 +1,16 @@
 ﻿using Microsoft.Office.Interop.Outlook;
+using Room17.MeetingDecline;
 using Room17.MeetingDecline.Util;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 
-namespace Room17.MeetingDecline
+namespace Room17.Forms.MeetingDecline
 {
-    public partial class MeetingDeclineForm : Form
+    public partial class RulesForm : Form
     {
-        private IDictionary<string, MeetingDeclineRule> Rules;
+        private IDictionary<string, DeclineRule> Rules;
         private Padding Padding1 = new Padding(3, 5, 3, 0);
         private Padding Padding2 = new Padding(3, 3, 3, 3);
         private Padding Padding3 = new Padding(3, 4, 3, 3);
@@ -17,17 +18,9 @@ namespace Room17.MeetingDecline
         private Point Point2 = new Point(96, -1);
         private Size Size1 = new Size(202, 24);
 
-        public MeetingDeclineForm()
+        public RulesForm()
         {
             InitializeComponent();
-
-            // read settings
-            if (Properties.Settings.Default.MeetingDeclineRules == null)
-                Properties.Settings.Default.MeetingDeclineRules = new Dictionary<string, MeetingDeclineRule>();
-            Rules = Properties.Settings.Default.MeetingDeclineRules;
-
-            // put an event handler to draw table lines
-            rulesTablePanel.CellPaint += RulesTablePanel_CellPaint;
         }
 
         /// <summary>
@@ -41,15 +34,22 @@ namespace Room17.MeetingDecline
         }
 
         // TODO: ask user for default behavior on folder add (autodecline it or ignore)
-        // TODO: choose between decline or tentative (default decline)
-        // TODO: send notification back or not (default not)
-        // TODO: send a message (default no message)
+        // TODO: tooltip for folder label with full folder path
+        // TODO: show loading bar
 
         /// <summary>
         /// Event handler for loading folders to be shown by reading them from runtime + apply setting on it
         /// </summary>
         private void MeetingDeclinedForm_Load(object sender, EventArgs e)
         {
+            // read settings
+            if (Room17.MeetingDecline.Properties.Settings.Default.MeetingDeclineRules == null)
+                Room17.MeetingDecline.Properties.Settings.Default.MeetingDeclineRules = new Dictionary<string, DeclineRule>();
+            Rules = Room17.MeetingDecline.Properties.Settings.Default.MeetingDeclineRules;
+
+            // put an event handler to draw table lines
+            rulesTablePanel.CellPaint += RulesTablePanel_CellPaint;
+
             // get all folders
             MAPIFolder root = Globals.AddIn.Application.Session.DefaultStore.GetRootFolder();
             IEnumerable<MAPIFolder> allFolders = GetFolders(root);
@@ -66,16 +66,14 @@ namespace Room17.MeetingDecline
                 bool isActive = false;
                 bool sendNotification = false;
                 bool isDecline = true;
-                string message = null;
 
                 // get folder setting and show it
                 if (Rules.ContainsKey(folder.EntryID))
                 {
-                    MeetingDeclineRule rule = Rules[folder.EntryID];
+                    DeclineRule rule = Rules[folder.EntryID];
                     isActive = rule.IsActive;
                     sendNotification = rule.SendNotification;
                     isDecline = rule.Response == OlMeetingResponse.olMeetingDeclined;
-                    message = rule.Message;
                 }
 
                 // add table row
@@ -94,7 +92,9 @@ namespace Room17.MeetingDecline
                 rulesTablePanel.Controls.Add(panel, 2, rulesTablePanel.RowCount - 1);
                 rulesTablePanel.Controls.Add(
                     new CheckBox() { Text = "Send response", Checked = sendNotification, AutoSize = true }, 3, rulesTablePanel.RowCount - 1);
-                // TODO: add Message too
+                LinkLabel linkLabel = new LinkLabel() { Text = "Message", AutoSize = true, Margin = Padding1, Tag = folder.EntryID };
+                linkLabel.LinkClicked += MessageLabel_LinkClicked;
+                rulesTablePanel.Controls.Add(linkLabel, 4, rulesTablePanel.RowCount - 1);
             }
 
             // TODO: load debug setting too
@@ -132,32 +132,44 @@ namespace Room17.MeetingDecline
                 CheckBox sendCheck = rulesTablePanel.GetControlFromPosition(3, i) as CheckBox;
                 MAPIFolder folder = enabledCheck.Tag as MAPIFolder;
 
-                Rules[folder.EntryID] = new MeetingDeclineRule() {
-                    IsActive = enabledCheck.Checked,
-                    Message = null,
-                    Response = declineButton.Checked ? OlMeetingResponse.olMeetingDeclined : OlMeetingResponse.olMeetingTentative,
-                    SendNotification = sendCheck.Checked
-                };
+                // do not override existing rule, otherwise Message field is lost
+                if (Rules.ContainsKey(folder.EntryID))
+                {
+                    Rules[folder.EntryID].IsActive = enabledCheck.Checked;
+                    Rules[folder.EntryID].Response =
+                        declineButton.Checked ? OlMeetingResponse.olMeetingDeclined : OlMeetingResponse.olMeetingTentative;
+                    Rules[folder.EntryID].SendNotification = sendCheck.Checked;
+                }
+                else
+                    Rules[folder.EntryID] = new DeclineRule()
+                    {
+                        IsActive = enabledCheck.Checked,
+                        Response = declineButton.Checked ? OlMeetingResponse.olMeetingDeclined : OlMeetingResponse.olMeetingTentative,
+                        SendNotification = sendCheck.Checked
+                    };
             }
 
-            Properties.Settings.Default.Save();
+            Room17.MeetingDecline.Properties.Settings.Default.Save();
         }
 
         /// <summary>
         /// Handle debug checbok check event and save its state
         /// </summary>
-        private void debugCheckBox_CheckedChanged(object sender, EventArgs e)
+        private void DebugCheckBox_CheckedChanged(object sender, EventArgs e)
         {
             // save debug setting
-            Properties.Settings.Default["Debug"] = debugCheckBox.Checked;
+            Room17.MeetingDecline.Properties.Settings.Default["Debug"] = debugCheckBox.Checked;
             // apply debug setting
-            Util.Logger.DEBUG = debugCheckBox.Checked;
+            Logger.DEBUG = debugCheckBox.Checked;
         }
-    }
 
-    class CheckBoxEntry
-    {
-        public string Text { get; set; }
-        public MAPIFolder Value { get; set; }
+        private void MessageLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            if (!(sender is LinkLabel messageLink)) return;
+            if (!(messageLink.Tag is string folderID)) return;
+            
+            // send folderID and Message to the input message form
+            new Room17.MeetingDecline.Forms.DeclineMessageForm(folderID).ShowDialog();
+        }
     }
 }

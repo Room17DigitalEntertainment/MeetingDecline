@@ -1,13 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Xml.Linq;
-using Outlook = Microsoft.Office.Interop.Outlook;
-using Office = Microsoft.Office.Core;
 using Microsoft.Office.Interop.Outlook;
 using Room17.MeetingDecline.Util;
-using Microsoft.Office.Tools.Ribbon;
 
 namespace Room17.MeetingDecline
 {
@@ -65,6 +58,7 @@ namespace Room17.MeetingDecline
             }
         }
 
+        // TODO: replace NewEx with something else to really handle all new emails; https://www.add-in-express.com/creating-addins-blog/2011/11/10/outlook-newmail-custom-solution/ ?
         /// <summary>
         /// Event handler for every new email received, regardless of its type
         /// </summary>
@@ -86,13 +80,14 @@ namespace Room17.MeetingDecline
             if(Properties.Settings.Default.MeetingDeclineRules.ContainsKey(parentFolder.EntryID))
             {
                 // check if rule it's active
-                MeetingDeclineRule rule = Properties.Settings.Default.MeetingDeclineRules[parentFolder.EntryID];
+                DeclineRule rule = Properties.Settings.Default.MeetingDeclineRules[parentFolder.EntryID];
                 if (rule.IsActive)
                 {
                     // if it's a Cancelation, delete it from calendar
                     if (meetingItem.Class == OlObjectClass.olMeetingCancellation)
                     {
-                        if (meetingItem.GetAssociatedAppointment(false) != null) { meetingItem.GetAssociatedAppointment(false).Delete(); return; }
+                        if (meetingItem.GetAssociatedAppointment(false) != null)
+                            { meetingItem.GetAssociatedAppointment(false).Delete(); return; }
                         meetingItem.Delete(); return; // if deleted by user/app, delete the whole message
                     }
 
@@ -102,18 +97,18 @@ namespace Room17.MeetingDecline
                     // optional, send notification back to sender
                     appointment.ResponseRequested &= rule.SendNotification;
 
-                    // optional, add a meesage to the Body
-                    if (!String.IsNullOrEmpty(rule.Message))
-                        appointment.Body = rule.Message + Environment.NewLine + Environment.NewLine + appointment.Body;
-
                     // set decline to the meeting
                     MeetingItem responseMeeting = appointment.Respond(rule.Response, true);
                     // https://msdn.microsoft.com/en-us/VBA/Outlook-VBA/articles/appointmentitem-respond-method-outlook 
                     // says that Respond() will return a new meeting object for Tentative response
 
+                    // optional, add a meesage to the Body
+                    if (!String.IsNullOrEmpty(rule.Message))
+                        (responseMeeting ?? meetingItem).Body = rule.Message;
+
                     // send decline
                     //if(rule.Response == OlMeetingResponse.olMeetingDeclined)
-                    (responseMeeting ?? meetingItem).Send();
+                    (responseMeeting ?? meetingItem).Send(); // TODO: appointment doesn't dissaper when declined and sent. Need to search again for it and delete it with Extended MAPI
                     // and delete the appointment if tentative
                     if (rule.Response == OlMeetingResponse.olMeetingTentative)
                         appointment.Delete();

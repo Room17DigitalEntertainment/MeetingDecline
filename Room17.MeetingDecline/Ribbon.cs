@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
-using System.Linq;
 using System.Reflection;
 using System.Runtime.InteropServices;
-using System.Text;
-using System.Windows.Forms;
 using Office = Microsoft.Office.Core;
 
 // TODO:  Follow these steps to enable the Ribbon (XML) item:
@@ -49,12 +45,7 @@ namespace Room17.MeetingDecline
             this.ribbon = ribbonUI;
         }
 
-
-        public void OnButtonClick(Office.IRibbonControl control)
-        {
-            MeetingDeclineForm dialog = new MeetingDeclineForm();
-            /*DialogResult result =*/ dialog.ShowDialog();
-        }
+        public void OnButtonClick(Office.IRibbonControl control) => new Room17.Forms.MeetingDecline.RulesForm().ShowDialog();
 
         public Bitmap GetCustomImage(Office.IRibbonControl control) => Properties.Resources.MeetingDeclineIcon;
 
