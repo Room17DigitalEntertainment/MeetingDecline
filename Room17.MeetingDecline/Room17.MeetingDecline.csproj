@@ -199,7 +199,6 @@
     </Compile>
     <Compile Include="Ribbon.cs" />
     <Compile Include="Settings.cs" />
-    <Compile Include="Util\Logger.cs" />
     <Compile Include="Util\DeclineRule.cs" />
     <EmbeddedResource Include="Forms\DeclineMessageForm.resx">
       <DependentUpon>DeclineMessageForm.cs</DependentUpon>

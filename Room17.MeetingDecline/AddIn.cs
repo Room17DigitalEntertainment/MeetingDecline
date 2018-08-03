@@ -138,19 +138,12 @@ namespace Room17.MeetingDecline
             {
                 item = Globals.AddIn.Application.Session.GetItemFromID(EntryIDCollection);
             }
-            catch (System.Exception ex)
+            catch
             {
-                Logger.Error(String.Format("Could not retrieve info for message id:{0}. Error message is:{1}{2}",
-                    EntryIDCollection, Environment.NewLine, ex.ToString()));
                 return null;
             }
 
             MeetingItem meetingItem = item as MeetingItem;
-            if (meetingItem == null)
-            {
-                Logger.Debug(String.Format("Message with id {0} is not a MeetingItem.", EntryIDCollection));
-            }
-
             return meetingItem;
         }
 

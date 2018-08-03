@@ -30,8 +30,6 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(RulesForm));
             this.label1 = new System.Windows.Forms.Label();
-            this.debugCheckBox = new System.Windows.Forms.CheckBox();
-            this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.okButton = new System.Windows.Forms.Button();
             this.cancelButton = new System.Windows.Forms.Button();
             this.rulesTablePanel = new System.Windows.Forms.TableLayoutPanel();
@@ -45,27 +43,6 @@
             this.label1.Size = new System.Drawing.Size(310, 20);
             this.label1.TabIndex = 1;
             this.label1.Text = "Folders to auto decline incoming meetings:";
-            // 
-            // debugCheckBox
-            // 
-            this.debugCheckBox.AutoSize = true;
-            this.debugCheckBox.Location = new System.Drawing.Point(12, 532);
-            this.debugCheckBox.Name = "debugCheckBox";
-            this.debugCheckBox.Size = new System.Drawing.Size(83, 24);
-            this.debugCheckBox.TabIndex = 3;
-            this.debugCheckBox.Text = "Debug";
-            this.debugCheckBox.UseVisualStyleBackColor = true;
-            this.debugCheckBox.CheckedChanged += new System.EventHandler(this.DebugCheckBox_CheckedChanged);
-            // 
-            // linkLabel1
-            // 
-            this.linkLabel1.AutoSize = true;
-            this.linkLabel1.Location = new System.Drawing.Point(112, 533);
-            this.linkLabel1.Name = "linkLabel1";
-            this.linkLabel1.Size = new System.Drawing.Size(90, 20);
-            this.linkLabel1.TabIndex = 4;
-            this.linkLabel1.TabStop = true;
-            this.linkLabel1.Text = "Debug logs";
             // 
             // okButton
             // 
@@ -114,8 +91,6 @@
             this.Controls.Add(this.rulesTablePanel);
             this.Controls.Add(this.cancelButton);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.debugCheckBox);
-            this.Controls.Add(this.linkLabel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
@@ -131,8 +106,6 @@
         #endregion
 
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.CheckBox debugCheckBox;
-        private System.Windows.Forms.LinkLabel linkLabel1;
         private System.Windows.Forms.Button okButton;
         private System.Windows.Forms.Button cancelButton;
         private System.Windows.Forms.TableLayoutPanel rulesTablePanel;

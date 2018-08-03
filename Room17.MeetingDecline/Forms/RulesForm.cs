@@ -96,9 +96,6 @@ namespace Room17.Forms.MeetingDecline
                 linkLabel.LinkClicked += MessageLabel_LinkClicked;
                 rulesTablePanel.Controls.Add(linkLabel, 4, rulesTablePanel.RowCount - 1);
             }
-
-            // TODO: load debug setting too
-            // TODO: configure url label to open debug logs
         }
 
         /// <summary>
@@ -150,17 +147,6 @@ namespace Room17.Forms.MeetingDecline
             }
 
             Room17.MeetingDecline.Properties.Settings.Default.Save();
-        }
-
-        /// <summary>
-        /// Handle debug checbok check event and save its state
-        /// </summary>
-        private void DebugCheckBox_CheckedChanged(object sender, EventArgs e)
-        {
-            // save debug setting
-            Room17.MeetingDecline.Properties.Settings.Default["Debug"] = debugCheckBox.Checked;
-            // apply debug setting
-            Logger.DEBUG = debugCheckBox.Checked;
         }
 
         private void MessageLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
