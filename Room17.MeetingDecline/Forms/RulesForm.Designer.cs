@@ -46,6 +46,7 @@
             // 
             // okButton
             // 
+            this.okButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.okButton.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.okButton.Location = new System.Drawing.Point(609, 526);
             this.okButton.Name = "okButton";
@@ -57,6 +58,7 @@
             // 
             // cancelButton
             // 
+            this.cancelButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.cancelButton.Location = new System.Drawing.Point(738, 526);
             this.cancelButton.Name = "cancelButton";
@@ -67,6 +69,9 @@
             // 
             // rulesTablePanel
             // 
+            this.rulesTablePanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.rulesTablePanel.ColumnCount = 5;
             this.rulesTablePanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 31F));
             this.rulesTablePanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 13F));
@@ -78,7 +83,7 @@
             this.rulesTablePanel.RowCount = 1;
             this.rulesTablePanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.rulesTablePanel.Size = new System.Drawing.Size(834, 466);
-            this.rulesTablePanel.TabIndex = 8;
+            this.rulesTablePanel.TabIndex = 2;
             // 
             // RulesForm
             // 
@@ -91,9 +96,8 @@
             this.Controls.Add(this.rulesTablePanel);
             this.Controls.Add(this.cancelButton);
             this.Controls.Add(this.label1);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MaximizeBox = false;
+            this.MinimumSize = new System.Drawing.Size(880, 400);
             this.Name = "RulesForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Meeting Decline Settings";

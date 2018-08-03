@@ -80,7 +80,7 @@
             this.Controls.Add(this.messageBox);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "DeclineMessageForm";
-            this.Text = "DeclineMessageForm";
+            this.Text = "Enter optional message";
             this.ResumeLayout(false);
             this.PerformLayout();
 

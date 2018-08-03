@@ -33,7 +33,6 @@ namespace Room17.Forms.MeetingDecline
                     new Point(e.CellBounds.Right, e.CellBounds.Top - 5));
         }
 
-        // TODO: ask user for default behavior on folder add (autodecline it or ignore)
         // TODO: tooltip for folder label with full folder path
         // TODO: show loading bar
 
