@@ -93,6 +93,7 @@ namespace Room17.MeetingDecline
 
                     // get associated appointment
                     AppointmentItem appointment = meetingItem.GetAssociatedAppointment(false);
+                    string globalAppointmentID = appointment.GlobalAppointmentID;
 
                     // optional, send notification back to sender
                     appointment.ResponseRequested &= rule.SendNotification;
@@ -108,10 +109,19 @@ namespace Room17.MeetingDecline
 
                     // send decline
                     //if(rule.Response == OlMeetingResponse.olMeetingDeclined)
-                    (responseMeeting ?? meetingItem).Send(); // TODO: appointment doesn't dissaper when declined and sent. Need to search again for it and delete it with Extended MAPI
+                    (responseMeeting ?? meetingItem).Send();
+
                     // and delete the appointment if tentative
                     if (rule.Response == OlMeetingResponse.olMeetingTentative)
                         appointment.Delete();
+
+                    // after Sending the response, sometimes the appointment doesn't get deleted from calendar,
+                    // but appointmnent could become and invalid object, so we need to search for it and delete it
+                    AppointmentItem newAppointment = this.Application.Session.GetDefaultFolder(OlDefaultFolders.olFolderCalendar).Items
+                        .Find("@SQL=\"http://schemas.microsoft.com/mapi/id/{6ED8DA90-450B-101B-98DA-00AA003F1305}/00030102\" = '"
+                        + globalAppointmentID + "' ");
+                    if (newAppointment != null)
+                        newAppointment.Delete();
                 }
             }
         }
