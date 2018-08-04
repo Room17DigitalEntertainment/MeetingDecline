@@ -37,11 +37,11 @@ TBA
 
 - Optional, click on `Message` link to add a custom message for response message:
 
-  ![message](screenshots/message.png?raw=true "message")
+    ![message](screenshots/message.png?raw=true "message")
 
     - A new window will appear where you can type in your message:
-  
-  ![input](screenshots/input.png?raw=true "input")
+
+    ![input](screenshots/input.png?raw=true "input")
 
     - Click `OK` to save it, or `Cancel` to revert changes.
 
