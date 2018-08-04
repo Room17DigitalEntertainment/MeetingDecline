@@ -47,3 +47,4 @@ TBA
 
 - That's it! Click `OK` to save everything or `Cancel` to discard changes. The application will start listening to new emails and decline them according to your rules.
 
+  ![finish](/../screenshots/screenshots/finish.png?raw=true "finish")
