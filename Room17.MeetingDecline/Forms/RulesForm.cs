@@ -4,6 +4,8 @@ using Room17.MeetingDecline.Util;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Room17.Forms.MeetingDecline
@@ -33,25 +35,13 @@ namespace Room17.Forms.MeetingDecline
                     new Point(e.CellBounds.Right, e.CellBounds.Top - 5));
         }
 
-        // TODO: tooltip for folder label with full folder path
-        // TODO: show loading bar
-
         /// <summary>
         /// Event handler for loading folders to be shown by reading them from runtime + apply setting on it
         /// </summary>
-        private void MeetingDeclinedForm_Load(object sender, EventArgs e)
+        private async void MeetingDeclinedForm_Load(object sender, EventArgs e)
         {
-            // read settings
-            if (Room17.MeetingDecline.Properties.Settings.Default.MeetingDeclineRules == null)
-                Room17.MeetingDecline.Properties.Settings.Default.MeetingDeclineRules = new Dictionary<string, DeclineRule>();
-            Rules = Room17.MeetingDecline.Properties.Settings.Default.MeetingDeclineRules;
-
             // put an event handler to draw table lines
             rulesTablePanel.CellPaint += RulesTablePanel_CellPaint;
-
-            // get all folders
-            MAPIFolder root = Globals.AddIn.Application.Session.DefaultStore.GetRootFolder();
-            IEnumerable<MAPIFolder> allFolders = GetFolders(root);
 
             // add vetical scroll and remove horizontal scroll
             rulesTablePanel.HorizontalScroll.Maximum = 0;
@@ -59,56 +49,105 @@ namespace Room17.Forms.MeetingDecline
             rulesTablePanel.VerticalScroll.Visible = false;
             rulesTablePanel.AutoScroll = true;
 
-            string toRemove = "\\\\" + Globals.AddIn.Application.Session.CurrentUser.AddressEntry.GetExchangeUser().PrimarySmtpAddress + "\\";
+            // hide table and disable OK button until rules are loaded
+            rulesTablePanel.Visible = okButton.Enabled = false;
 
-            // show all folders
-            foreach (MAPIFolder folder in allFolders)
+            // show a progress bar
+            ProgressBar progressBar = new ProgressBar()
+                { Style = ProgressBarStyle.Marquee, Parent = this, Size = new Size(400, 23), Anchor = AnchorStyles.Right | AnchorStyles.Left };
+            progressBar.Left = (this.ClientSize.Width - progressBar.Width) / 2;
+            progressBar.Top = (this.ClientSize.Height - progressBar.Height) / 2;
+
+            // load data inside table async
+            await LoadRules();
+
+            // make table visible and OK button enabled
+            rulesTablePanel.Visible = okButton.Enabled = true;
+
+            progressBar.Dispose();
+        }
+
+        /// <summary>
+        /// Asynchronously load and display Rules inside table layout panel
+        /// </summary>
+        /// <returns>A task to await or continue with</returns>
+        private async Task<bool> LoadRules()
+        {
+            return await Task.Run(() =>
             {
-                bool isActive = false;
-                bool sendNotification = false;
-                bool isDecline = true;
-
-                // get folder setting and show it
-                if (Rules.ContainsKey(folder.EntryID))
+                try
                 {
-                    DeclineRule rule = Rules[folder.EntryID];
-                    isActive = rule.IsActive;
-                    sendNotification = rule.SendNotification;
-                    isDecline = rule.Response == OlMeetingResponse.olMeetingDeclined;
+                    // read settings
+                    if (Room17.MeetingDecline.Properties.Settings.Default.MeetingDeclineRules == null)
+                        Room17.MeetingDecline.Properties.Settings.Default.MeetingDeclineRules = new Dictionary<string, DeclineRule>();
+                    Rules = Room17.MeetingDecline.Properties.Settings.Default.MeetingDeclineRules;
+
+                    // get all folders
+                    MAPIFolder root = Globals.AddIn.Application.Session.DefaultStore.GetRootFolder();
+                    IEnumerable<MAPIFolder> allFolders = GetFolders(root);
+
+                    string toRemove = "\\\\" + Globals.AddIn.Application.Session.CurrentUser.AddressEntry.GetExchangeUser().PrimarySmtpAddress + "\\";
+
+                    // show all folders
+                    foreach (MAPIFolder folder in allFolders)
+                    {
+                        bool isActive = false;
+                        bool sendNotification = false;
+                        bool isDecline = true;
+
+                        // get folder setting and show it
+                        if (Rules.ContainsKey(folder.EntryID))
+                        {
+                            DeclineRule rule = Rules[folder.EntryID];
+                            isActive = rule.IsActive;
+                            sendNotification = rule.SendNotification;
+                            isDecline = rule.Response == OlMeetingResponse.olMeetingDeclined;
+                        }
+
+                        // add a new row using UI thread
+                        rulesTablePanel.Invoke(new System.Action(() =>
+                        {
+                            // add table row
+                            rulesTablePanel.RowCount++;
+                            rulesTablePanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 40F));
+
+                            // add label with folder name
+                            Label folderLabel = new Label() { Text = folder.Name, Margin = Padding1, AutoSize = true };
+                            ToolTip toolTip = new ToolTip() { ToolTipIcon = ToolTipIcon.None };
+                            toolTip.SetToolTip(folderLabel, folder.FolderPath.Replace(toRemove, ""));
+                            rulesTablePanel.Controls.Add(folderLabel, 0, rulesTablePanel.RowCount - 1);
+
+                            // add checkbox for enable rule
+                            rulesTablePanel.Controls.Add(
+                                    new CheckBox() { Text = "Enabled", Checked = isActive, Margin = Padding2, Tag = folder }, 1, rulesTablePanel.RowCount - 1);
+
+                            // add radio buttons for decline/tentative
+                            Panel panel = new Panel() { Margin = Padding3, Size = Size1 };
+                            RadioButton declineButton =
+                                new RadioButton() { Text = "Decline", Margin = Padding2, Checked = isDecline, AutoSize = true, Location = Point1 };
+                            panel.Controls.Add(declineButton);
+                            panel.Controls.Add(
+                                new RadioButton() { Text = "Tentative", Margin = Padding2, Checked = !isDecline, AutoSize = true, Location = Point2 });
+                            rulesTablePanel.Controls.Add(panel, 2, rulesTablePanel.RowCount - 1);
+
+                            // add checkbox for send response
+                            rulesTablePanel.Controls.Add(
+                                    new CheckBox() { Text = "Send response", Checked = sendNotification, AutoSize = true }, 3, rulesTablePanel.RowCount - 1);
+
+                            // add link for setting a message
+                            LinkLabel linkLabel = new LinkLabel() { Text = "Message", AutoSize = true, Margin = Padding1, Tag = folder.EntryID };
+                            linkLabel.LinkClicked += MessageLabel_LinkClicked;
+                            rulesTablePanel.Controls.Add(linkLabel, 4, rulesTablePanel.RowCount - 1);
+                        }));
+                    }
+
+                    return true;
                 }
-
-                // add table row
-                rulesTablePanel.RowCount++;
-                rulesTablePanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 40F));
-
-                // add label with folder name
-                Label folderLabel = new Label() { Text = folder.Name, Margin = Padding1, AutoSize = true };
-                ToolTip toolTip = new ToolTip() { ToolTipIcon = ToolTipIcon.None };
-                toolTip.SetToolTip(folderLabel, folder.FolderPath.Replace(toRemove, ""));
-                rulesTablePanel.Controls.Add(folderLabel, 0, rulesTablePanel.RowCount - 1);
-
-                // add checkbox for enable rule
-                rulesTablePanel.Controls.Add(
-                    new CheckBox() { Text = "Enabled", Checked = isActive, Margin = Padding2, Tag = folder }, 1, rulesTablePanel.RowCount - 1);
-
-                // add radio buttons for decline/tentative
-                Panel panel = new Panel() { Margin = Padding3, Size = Size1 };
-                RadioButton declineButton =
-                    new RadioButton() { Text = "Decline", Margin = Padding2, Checked = isDecline, AutoSize = true, Location = Point1 };
-                panel.Controls.Add(declineButton);
-                panel.Controls.Add(
-                    new RadioButton() { Text = "Tentative", Margin = Padding2, Checked = !isDecline, AutoSize = true, Location = Point2 });
-                rulesTablePanel.Controls.Add(panel, 2, rulesTablePanel.RowCount - 1);
-
-                // add checkbox for send response
-                rulesTablePanel.Controls.Add(
-                    new CheckBox() { Text = "Send response", Checked = sendNotification, AutoSize = true }, 3, rulesTablePanel.RowCount - 1);
-
-                // add link for setting a message
-                LinkLabel linkLabel = new LinkLabel() { Text = "Message", AutoSize = true, Margin = Padding1, Tag = folder.EntryID };
-                linkLabel.LinkClicked += MessageLabel_LinkClicked;
-                rulesTablePanel.Controls.Add(linkLabel, 4, rulesTablePanel.RowCount - 1);
-            }
+                catch(InvalidOperationException) // when clicking Cancel and table is not loaded
+                {
+                    return false;
+                }
+            });
         }
 
         /// <summary>
