@@ -6,3 +6,6 @@ Outlook addin for automatically declining meeting requests received in certain f
 
 ###Install
 TBA
+
+###Usage
+TBA
