@@ -59,6 +59,8 @@ namespace Room17.Forms.MeetingDecline
             rulesTablePanel.VerticalScroll.Visible = false;
             rulesTablePanel.AutoScroll = true;
 
+            string toRemove = "\\\\" + Globals.AddIn.Application.Session.CurrentUser.AddressEntry.GetExchangeUser().PrimarySmtpAddress + "\\";
+
             // show all folders
             foreach (MAPIFolder folder in allFolders)
             {
@@ -78,10 +80,18 @@ namespace Room17.Forms.MeetingDecline
                 // add table row
                 rulesTablePanel.RowCount++;
                 rulesTablePanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 40F));
-                rulesTablePanel.Controls.Add(
-                    new Label() { Text = folder.Name, Margin = Padding1, AutoSize = true }, 0, rulesTablePanel.RowCount - 1);
+
+                // add label with folder name
+                Label folderLabel = new Label() { Text = folder.Name, Margin = Padding1, AutoSize = true };
+                ToolTip toolTip = new ToolTip() { ToolTipIcon = ToolTipIcon.None };
+                toolTip.SetToolTip(folderLabel, folder.FolderPath.Replace(toRemove, ""));
+                rulesTablePanel.Controls.Add(folderLabel, 0, rulesTablePanel.RowCount - 1);
+
+                // add checkbox for enable rule
                 rulesTablePanel.Controls.Add(
                     new CheckBox() { Text = "Enabled", Checked = isActive, Margin = Padding2, Tag = folder }, 1, rulesTablePanel.RowCount - 1);
+
+                // add radio buttons for decline/tentative
                 Panel panel = new Panel() { Margin = Padding3, Size = Size1 };
                 RadioButton declineButton =
                     new RadioButton() { Text = "Decline", Margin = Padding2, Checked = isDecline, AutoSize = true, Location = Point1 };
@@ -89,8 +99,12 @@ namespace Room17.Forms.MeetingDecline
                 panel.Controls.Add(
                     new RadioButton() { Text = "Tentative", Margin = Padding2, Checked = !isDecline, AutoSize = true, Location = Point2 });
                 rulesTablePanel.Controls.Add(panel, 2, rulesTablePanel.RowCount - 1);
+
+                // add checkbox for send response
                 rulesTablePanel.Controls.Add(
                     new CheckBox() { Text = "Send response", Checked = sendNotification, AutoSize = true }, 3, rulesTablePanel.RowCount - 1);
+
+                // add link for setting a message
                 LinkLabel linkLabel = new LinkLabel() { Text = "Message", AutoSize = true, Margin = Padding1, Tag = folder.EntryID };
                 linkLabel.LinkClicked += MessageLabel_LinkClicked;
                 rulesTablePanel.Controls.Add(linkLabel, 4, rulesTablePanel.RowCount - 1);
