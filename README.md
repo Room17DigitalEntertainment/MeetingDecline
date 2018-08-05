@@ -1,5 +1,13 @@
 # Meeting Decline ![logo](Room17DE.MeetingDecline/Resources/MeetingDeclineImage.png "Logo")
 
+## Table of Contents
+- [About](#about)
+- [Features](#features)
+- [Install](#install)
+- [Usage](#usage)
+- [Submit an issue](#submit-an-issue)
+- [Development](#development)
+
 ### About
 Outlook addin for automatically declining meeting requests received in certain folders.
 
