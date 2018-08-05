@@ -7,6 +7,7 @@
 - [Usage](#usage)
 - [Submit an issue](#submit-an-issue)
 - [Development](#development)
+- [License](#license)
 
 ### About
 Outlook addin for automatically declining meeting requests received in certain folders.
@@ -60,7 +61,9 @@ To uninstall, go to `Control Panel` -> `Programs` -> `Uninstall a program` and u
   ![finish](screenshots/finish.png?raw=true "finish")
   
 ### Submit an issue
-TBA
+Please use [GitHub issues](https://github.com/Room17DigitalEntertainment/MeetingDecline/issues) to add a new bug or feature request.
+
+When opening a bug, please include information about which **Operating System** you're using, **Outlook version**, any error you've seen and what you were doing inside the application. Before that, please take a moment before submitting and check if there isn't an already existing bug opened. If so, then kindly add a comment describing your situation too.
   
 ### Development
 Software Required:
@@ -84,5 +87,6 @@ Use these steps in case Outlook doesn't want to load the addin:
     - select `Disabled Items` under `Manage:` (lower page section) then click `Go...`
     - select the addin and click Enable
 - restart Outlook
-        
-    
+
+### License
+This project is licensed under _GNU General Public License v3.0_. See [LICENSE.txt](LICENSE.txt) for terms of the license.
