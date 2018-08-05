@@ -1,7 +1,7 @@
 ﻿using Microsoft.Office.Interop.Outlook;
 using System;
 
-namespace Room17.MeetingDecline.Util
+namespace Room17DE.MeetingDecline.Util
 {
     [Serializable]
     class DeclineRule

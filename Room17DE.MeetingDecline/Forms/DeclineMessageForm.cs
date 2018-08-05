@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 
-namespace Room17.MeetingDecline.Forms
+namespace Room17DE.MeetingDecline.Forms
 {
     public partial class DeclineMessageForm : Form
     {
@@ -13,7 +13,8 @@ namespace Room17.MeetingDecline.Forms
             InitializeComponent();
 
             // show Message
-            messageBox.Text = Properties.Settings.Default.MeetingDeclineRules[FolderID]?.Message;
+            if(Properties.Settings.Default.MeetingDeclineRules.ContainsKey(FolderID))
+                messageBox.Text = Properties.Settings.Default.MeetingDeclineRules[FolderID].Message;
         }
 
         /// <summary>
@@ -30,6 +31,14 @@ namespace Room17.MeetingDecline.Forms
             // save the message
             Properties.Settings.Default.MeetingDeclineRules[FolderID].Message = messageBox.Text;
             Properties.Settings.Default.Save();
+        }
+
+        /// <summary>
+        /// Event handler to load the form icon
+        /// </summary>
+        private void DeclineMessageForm_Load(object sender, EventArgs e)
+        {
+            this.Icon = Properties.Resources.text;
         }
     }
 }

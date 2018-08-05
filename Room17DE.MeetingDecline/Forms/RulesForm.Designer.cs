@@ -1,4 +1,4 @@
-﻿namespace Room17.Forms.MeetingDecline
+﻿namespace Room17DE.Forms.MeetingDecline
 {
     partial class RulesForm
     {
@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(RulesForm));
             this.label1 = new System.Windows.Forms.Label();
             this.okButton = new System.Windows.Forms.Button();
             this.cancelButton = new System.Windows.Forms.Button();
@@ -96,7 +95,6 @@
             this.Controls.Add(this.rulesTablePanel);
             this.Controls.Add(this.cancelButton);
             this.Controls.Add(this.label1);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimumSize = new System.Drawing.Size(880, 400);
             this.Name = "RulesForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;

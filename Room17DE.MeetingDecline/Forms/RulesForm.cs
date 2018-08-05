@@ -1,6 +1,6 @@
 ﻿using Microsoft.Office.Interop.Outlook;
-using Room17.MeetingDecline;
-using Room17.MeetingDecline.Util;
+using Room17DE.MeetingDecline;
+using Room17DE.MeetingDecline.Util;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -8,7 +8,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Room17.Forms.MeetingDecline
+namespace Room17DE.Forms.MeetingDecline
 {
     public partial class RulesForm : Form
     {
@@ -40,6 +40,9 @@ namespace Room17.Forms.MeetingDecline
         /// </summary>
         private async void MeetingDeclinedForm_Load(object sender, EventArgs e)
         {
+            // load icon
+            this.Icon = Room17DE.MeetingDecline.Properties.Resources.icon;
+
             // put an event handler to draw table lines
             rulesTablePanel.CellPaint += RulesTablePanel_CellPaint;
 
@@ -78,9 +81,9 @@ namespace Room17.Forms.MeetingDecline
                 try
                 {
                     // read settings
-                    if (Room17.MeetingDecline.Properties.Settings.Default.MeetingDeclineRules == null)
-                        Room17.MeetingDecline.Properties.Settings.Default.MeetingDeclineRules = new Dictionary<string, DeclineRule>();
-                    Rules = Room17.MeetingDecline.Properties.Settings.Default.MeetingDeclineRules;
+                    if (Room17DE.MeetingDecline.Properties.Settings.Default.MeetingDeclineRules == null)
+                        Room17DE.MeetingDecline.Properties.Settings.Default.MeetingDeclineRules = new Dictionary<string, DeclineRule>();
+                    Rules = Room17DE.MeetingDecline.Properties.Settings.Default.MeetingDeclineRules;
 
                     // get all folders
                     MAPIFolder root = Globals.AddIn.Application.Session.DefaultStore.GetRootFolder();
@@ -198,7 +201,7 @@ namespace Room17.Forms.MeetingDecline
                     };
             }
 
-            Room17.MeetingDecline.Properties.Settings.Default.Save();
+            Room17DE.MeetingDecline.Properties.Settings.Default.Save();
         }
 
         private void MessageLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -207,7 +210,7 @@ namespace Room17.Forms.MeetingDecline
             if (!(messageLink.Tag is string folderID)) return;
             
             // send folderID and Message to the input message form
-            new Room17.MeetingDecline.Forms.DeclineMessageForm(folderID).ShowDialog();
+            new Room17DE.MeetingDecline.Forms.DeclineMessageForm(folderID).ShowDialog();
         }
     }
 }

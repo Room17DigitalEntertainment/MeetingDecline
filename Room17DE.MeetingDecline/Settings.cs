@@ -1,8 +1,8 @@
-﻿using Room17.MeetingDecline.Util;
+﻿using Room17DE.MeetingDecline.Util;
 using System.Collections.Generic;
 using System.Configuration;
 
-namespace Room17.MeetingDecline.Properties {
+namespace Room17DE.MeetingDecline.Properties {
     
     
     // This class allows you to handle specific events on the settings class:

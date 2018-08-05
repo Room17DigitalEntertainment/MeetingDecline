@@ -1,8 +1,8 @@
 ﻿using System;
 using Microsoft.Office.Interop.Outlook;
-using Room17.MeetingDecline.Util;
+using Room17DE.MeetingDecline.Util;
 
-namespace Room17.MeetingDecline
+namespace Room17DE.MeetingDecline
 {
     public partial class AddIn
     {

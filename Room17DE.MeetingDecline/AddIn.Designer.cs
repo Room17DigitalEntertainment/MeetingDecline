@@ -9,7 +9,7 @@
 //------------------------------------------------------------------------------
 
 #pragma warning disable 414
-namespace Room17.MeetingDecline {
+namespace Room17DE.MeetingDecline {
     
     
     /// 

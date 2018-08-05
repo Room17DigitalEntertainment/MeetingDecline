@@ -5,7 +5,7 @@ using System.Reflection;
 using System.Runtime.InteropServices;
 using Office = Microsoft.Office.Core;
 
-namespace Room17.MeetingDecline
+namespace Room17DE.MeetingDecline
 {
     [ComVisible(true)]
     public class Ribbon : Office.IRibbonExtensibility
@@ -20,7 +20,7 @@ namespace Room17.MeetingDecline
 
         public string GetCustomUI(string ribbonID)
         {
-            return GetResourceText("Room17.MeetingDecline.Ribbon.xml");
+            return GetResourceText("Room17DE.MeetingDecline.Ribbon.xml");
         }
 
         #endregion
@@ -33,9 +33,9 @@ namespace Room17.MeetingDecline
             this.ribbon = ribbonUI;
         }
 
-        public void OnButtonClick(Office.IRibbonControl control) => new Room17.Forms.MeetingDecline.RulesForm().ShowDialog();
+        public void OnButtonClick(Office.IRibbonControl control) => new Room17DE.Forms.MeetingDecline.RulesForm().ShowDialog();
 
-        public Bitmap GetCustomImage(Office.IRibbonControl control) => Properties.Resources.MeetingDeclineIcon;
+        public Bitmap GetCustomImage(Office.IRibbonControl control) => Properties.Resources.MeetingDeclineImage;
 
         #endregion
 

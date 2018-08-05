@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27703.2042
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Room17.MeetingDecline", "Room17.MeetingDecline\Room17.MeetingDecline.csproj", "{809D3DB4-0ADE-4DC3-ABE2-D8D109D5EF5D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Room17DE.MeetingDecline", "Room17DE.MeetingDecline\Room17DE.MeetingDecline.csproj", "{809D3DB4-0ADE-4DC3-ABE2-D8D109D5EF5D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

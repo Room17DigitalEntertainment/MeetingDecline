@@ -1,4 +1,4 @@
-﻿namespace Room17.MeetingDecline.Forms
+﻿namespace Room17DE.MeetingDecline.Forms
 {
     partial class DeclineMessageForm
     {
@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DeclineMessageForm));
             this.messageBox = new System.Windows.Forms.TextBox();
             this.okButton = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
@@ -78,9 +77,9 @@
             this.Controls.Add(this.button2);
             this.Controls.Add(this.okButton);
             this.Controls.Add(this.messageBox);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "DeclineMessageForm";
             this.Text = "Enter optional message";
+            this.Load += new System.EventHandler(this.DeclineMessageForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
