@@ -17,7 +17,11 @@ Outlook addin for automatically declining meeting requests received in certain f
 - and send optional response with an optional message
 
 ### Install
-TBA
+The installation process is pretty straightforward: download latest installer from: [GitHub](https://github.com/Room17DigitalEntertainment/MeetingDecline/releases/latest), run `Setup.exe` then click `Install` if prompted. That's it!
+
+> _Note: on multiple users system, the application must be installed by each user who wants to use it._
+
+To uninstall, go to `Control Panel` -> `Programs` -> `Uninstall a program` and uninstall `Meeting Decline`.
 
 ### Usage
 - Right click on any folder and select `Meeting Decline`
