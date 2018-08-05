@@ -1,18 +1,18 @@
-#Meeting Decline
+# Meeting Decline
 ![logo](Room17.MeetingDecline/MeetingDeclineIcon.png "Logo")
 
-###About
+### About
 Outlook addin for automatically declining meeting requests received in certain folders.
 
-###Features
+### Features
 - decline a meeting received in a folder
 - or say tentative to it
 - and send optional response with an optional message
 
-###Install
+### Install
 TBA
 
-###Usage
+### Usage
 - Right click on any folder and select `Meeting Decline`
 
   ![main](screenshots/main.png?raw=true "main")
