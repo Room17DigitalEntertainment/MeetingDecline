@@ -7,6 +7,7 @@
 - [Usage](#usage)
 - [Submit an issue](#submit-an-issue)
 - [Development](#development)
+  - [Contributing](#contributing)
 - [License](#license)
 
 ### About
@@ -87,6 +88,13 @@ Use these steps in case Outlook doesn't want to load the addin:
     - select `Disabled Items` under `Manage:` (lower page section) then click `Go...`
     - select the addin and click Enable
 - restart Outlook
+
+#### Contributing
+Want to add something awesome to this project? We would love to see contributions from you! But first, slow down a bit and please make sure you follow these _common sense_ rules:
+- Fork the repository to **your** GitHub account, so all changes happen in your account. Create a new _feature_ branch from `master` and apply your changes there. After that, simply create a `Pull Request` from your feature branch against `MeetingDecline` `master` branch.
+- Please limit each `Pull Request` to **one** feature. Don't add many features/changes, like a _fix_ and a _UI change_, into a single `Pull Request`. Create one at a time.
+- If you have complex changes, across multiple commits, try to `squash` them into one single commit. For instance, don't create a `Pull Request` consisting of 10 commits showing all your work in progress. Before you create the `Pull Request`, [squash](https://git-scm.com/book/en/v2/Git-Tools-Rewriting-History) your changes into a single commit.
+
 
 ### License
 This project is licensed under _GNU General Public License v3.0_. See [LICENSE.txt](LICENSE.txt) for terms of the license.
