@@ -41,7 +41,7 @@
     <UpdateIntervalUnits>days</UpdateIntervalUnits>
     <ProductName>Meeting Decline</ProductName>
     <PublisherName>Room17DE</PublisherName>
-    <SupportUrl />
+    <SupportUrl>https://github.com/Room17DigitalEntertainment/MeetingDecline/blob/master/README.md</SupportUrl>
     <FriendlyName>Room17DE Meeting Decline</FriendlyName>
     <OfficeApplicationDescription>Addin for automatically decline meetings received in certain folders.</OfficeApplicationDescription>
     <LoadBehavior>3</LoadBehavior>
