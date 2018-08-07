@@ -47,7 +47,7 @@
             // 
             this.okButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.okButton.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.okButton.Location = new System.Drawing.Point(609, 526);
+            this.okButton.Location = new System.Drawing.Point(648, 526);
             this.okButton.Name = "okButton";
             this.okButton.Size = new System.Drawing.Size(108, 34);
             this.okButton.TabIndex = 5;
@@ -59,7 +59,7 @@
             // 
             this.cancelButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.cancelButton.Location = new System.Drawing.Point(738, 526);
+            this.cancelButton.Location = new System.Drawing.Point(777, 526);
             this.cancelButton.Name = "cancelButton";
             this.cancelButton.Size = new System.Drawing.Size(108, 34);
             this.cancelButton.TabIndex = 6;
@@ -72,16 +72,16 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.rulesTablePanel.ColumnCount = 5;
-            this.rulesTablePanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 31F));
+            this.rulesTablePanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 29F));
             this.rulesTablePanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 13F));
             this.rulesTablePanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.rulesTablePanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 18F));
+            this.rulesTablePanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
             this.rulesTablePanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 13F));
             this.rulesTablePanel.Location = new System.Drawing.Point(12, 48);
             this.rulesTablePanel.Name = "rulesTablePanel";
             this.rulesTablePanel.RowCount = 1;
             this.rulesTablePanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.rulesTablePanel.Size = new System.Drawing.Size(834, 466);
+            this.rulesTablePanel.Size = new System.Drawing.Size(873, 466);
             this.rulesTablePanel.TabIndex = 2;
             // 
             // RulesForm
@@ -90,12 +90,12 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.cancelButton;
-            this.ClientSize = new System.Drawing.Size(858, 569);
+            this.ClientSize = new System.Drawing.Size(903, 569);
             this.Controls.Add(this.okButton);
             this.Controls.Add(this.rulesTablePanel);
             this.Controls.Add(this.cancelButton);
             this.Controls.Add(this.label1);
-            this.MinimumSize = new System.Drawing.Size(880, 400);
+            this.MinimumSize = new System.Drawing.Size(916, 391);
             this.Name = "RulesForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Meeting Decline Settings";

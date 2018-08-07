@@ -13,12 +13,10 @@ namespace Room17DE.Forms.MeetingDecline
     public partial class RulesForm : Form
     {
         private IDictionary<string, DeclineRule> Rules;
-        private Padding Padding1 = new Padding(3, 5, 3, 0);
-        private Padding Padding2 = new Padding(3, 3, 3, 3);
-        private Padding Padding3 = new Padding(3, 4, 3, 3);
-        private Point Point1 = new Point(3, -1);
-        private Point Point2 = new Point(96, -1);
-        private Size Size1 = new Size(202, 24);
+        private readonly Padding Padding1 = new Padding(3, 4, 3, 3);
+        private readonly Point Point1 = new Point(3, 3);
+        private Size Size1;
+        private float RowHeight;
 
         public RulesForm()
         {
@@ -43,6 +41,18 @@ namespace Room17DE.Forms.MeetingDecline
             // load icon
             this.Icon = Room17DE.MeetingDecline.Properties.Resources.icon;
 
+            // compute table row height by dpi; equation must be changed when doing massive UI update
+            // 144 is dpi for 150%, 96 is dpi for 100%
+            Graphics graphics = this.CreateGraphics();
+            this.RowHeight = (45F-30) / (144 - 96) * graphics.DpiY;
+
+            // set form width according to dpi; equation must be changed when doing massive UI update
+            this.Width = (int)((924F-616)/(144-96) * graphics.DpiX);
+            this.MinimumSize = new Size(this.Width, this.MinimumSize.Height);
+
+            // panel height
+            Size1 = new Size((int)((208.5F-139)/(144-96) * graphics.DpiX), 17);
+
             // put an event handler to draw table lines
             rulesTablePanel.CellPaint += RulesTablePanel_CellPaint;
 
@@ -51,6 +61,10 @@ namespace Room17DE.Forms.MeetingDecline
             rulesTablePanel.AutoScroll = false;
             rulesTablePanel.VerticalScroll.Visible = false;
             rulesTablePanel.AutoScroll = true;
+
+            // reset rows
+            rulesTablePanel.RowCount = 0;
+            rulesTablePanel.RowStyles.Clear();
 
             // hide table and disable OK button until rules are loaded
             rulesTablePanel.Visible = okButton.Enabled = false;
@@ -112,33 +126,34 @@ namespace Room17DE.Forms.MeetingDecline
                         {
                             // add table row
                             rulesTablePanel.RowCount++;
-                            rulesTablePanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 40F));
+                            rulesTablePanel.RowStyles.Add(new RowStyle(SizeType.Absolute, this.RowHeight));
 
                             // add label with folder name
-                            Label folderLabel = new Label() { Text = folder.Name, Margin = Padding1, AutoSize = true };
+                            Label folderLabel = new Label() { Text = folder.Name, Padding = Padding1, AutoSize = true };
                             ToolTip toolTip = new ToolTip() { ToolTipIcon = ToolTipIcon.None };
                             toolTip.SetToolTip(folderLabel, folder.FolderPath.Replace(toRemove, ""));
                             rulesTablePanel.Controls.Add(folderLabel, 0, rulesTablePanel.RowCount - 1);
 
                             // add checkbox for enable rule
                             rulesTablePanel.Controls.Add(
-                                    new CheckBox() { Text = "Enabled", Checked = isActive, Margin = Padding2, Tag = folder }, 1, rulesTablePanel.RowCount - 1);
+                                new CheckBox() { Text = "Enabled", Checked = isActive, Location = Point1, AutoSize = true, Tag = folder },
+                                1, rulesTablePanel.RowCount - 1);
 
                             // add radio buttons for decline/tentative
-                            Panel panel = new Panel() { Margin = Padding3, Size = Size1 };
+                            Panel panel = new Panel() { Location = Point1, Size = Size1 };
                             RadioButton declineButton =
-                                new RadioButton() { Text = "Decline", Margin = Padding2, Checked = isDecline, AutoSize = true, Location = Point1 };
+                                new RadioButton() { Text = "Decline", Checked = isDecline, AutoSize = true, Dock = DockStyle.Left };
                             panel.Controls.Add(declineButton);
                             panel.Controls.Add(
-                                new RadioButton() { Text = "Tentative", Margin = Padding2, Checked = !isDecline, AutoSize = true, Location = Point2 });
+                                new RadioButton() { Text = "Tentative", Checked = !isDecline, AutoSize = true, Dock = DockStyle.Right });
                             rulesTablePanel.Controls.Add(panel, 2, rulesTablePanel.RowCount - 1);
 
                             // add checkbox for send response
                             rulesTablePanel.Controls.Add(
-                                    new CheckBox() { Text = "Send response", Checked = sendNotification, AutoSize = true }, 3, rulesTablePanel.RowCount - 1);
+                                new CheckBox() { Text = "Send response", Checked = sendNotification, AutoSize = true }, 3, rulesTablePanel.RowCount - 1);
 
                             // add link for setting a message
-                            LinkLabel linkLabel = new LinkLabel() { Text = "Message", AutoSize = true, Margin = Padding1, Tag = folder.EntryID };
+                            LinkLabel linkLabel = new LinkLabel() { Text = "Message", AutoSize = true, Padding = Padding1, Tag = folder.EntryID };
                             linkLabel.LinkClicked += MessageLabel_LinkClicked;
                             rulesTablePanel.Controls.Add(linkLabel, 4, rulesTablePanel.RowCount - 1);
                         }));
