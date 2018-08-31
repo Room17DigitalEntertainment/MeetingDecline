@@ -1,4 +1,5 @@
 ﻿using Room17DE.MeetingDecline.Util;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 
@@ -28,6 +29,15 @@ namespace Room17DE.MeetingDecline.Properties {
         {
             get { return (IDictionary<string, DeclineRule>)this[nameof(MeetingDeclineRules)]; }
             set { this[nameof(MeetingDeclineRules)] = value; }
+        }
+
+        [UserScopedSetting]
+        [SettingsSerializeAs(SettingsSerializeAs.Binary)]
+        [DefaultSettingValue("")]
+        public IDictionary<string, DateTime> LastMailCheck
+        {
+            get { return (IDictionary<string, DateTime>)this[nameof(LastMailCheck)]; }
+            set { this[nameof(LastMailCheck)] = value; }
         }
 
         private void SettingChangingEventHandler(object sender, System.Configuration.SettingChangingEventArgs e) {

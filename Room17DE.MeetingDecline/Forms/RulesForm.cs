@@ -4,7 +4,6 @@ using Room17DE.MeetingDecline.Util;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -94,9 +93,6 @@ namespace Room17DE.Forms.MeetingDecline
             {
                 try
                 {
-                    // read settings
-                    if (Room17DE.MeetingDecline.Properties.Settings.Default.MeetingDeclineRules == null)
-                        Room17DE.MeetingDecline.Properties.Settings.Default.MeetingDeclineRules = new Dictionary<string, DeclineRule>();
                     Rules = Room17DE.MeetingDecline.Properties.Settings.Default.MeetingDeclineRules;
 
                     // get all folders
