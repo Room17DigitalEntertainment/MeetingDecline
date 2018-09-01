@@ -14,14 +14,27 @@ namespace Room17DE.MeetingDecline
 
         private void ThisAddIn_Startup(object sender, System.EventArgs e)
         {
+            #region settings
+            // check for settings upgrade after outlook update
+            if(Properties.Settings.Default.UpgradeRequired)
+            {
+                Properties.Settings.Default.Upgrade();
+                Properties.Settings.Default.UpgradeRequired = false;
+                Properties.Settings.Default.Save();
+            }
+
             // check if we have settings
             if (Properties.Settings.Default.MeetingDeclineRules == null)
+            {
                 Properties.Settings.Default.MeetingDeclineRules = new Dictionary<string, DeclineRule>();
-
+                Properties.Settings.Default.Save();
+            }
             if (Properties.Settings.Default.LastMailCheck == null)
+            {
                 Properties.Settings.Default.LastMailCheck = new Dictionary<string, DateTime>();
-
-            Properties.Settings.Default.Save();
+                Properties.Settings.Default.Save();
+            }
+            #endregion
 
             // make sure that a deleted folder removes the meetingdecline rule 
             Folder deletedItemsFolder = (Folder)Application.Session.GetDefaultFolder(OlDefaultFolders.olFolderDeletedItems);
