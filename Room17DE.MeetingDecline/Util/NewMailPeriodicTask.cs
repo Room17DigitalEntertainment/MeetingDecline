@@ -134,7 +134,7 @@ namespace Room17DE.MeetingDecline.Util
 
             // after Sending the response, sometimes the appointment doesn't get deleted from calendar,
             // but appointmnent could become and invalid object, so we need to search for it and delete it
-            AppointmentItem newAppointment = Globals.AddIn.Application.Session.GetDefaultFolder(OlDefaultFolders.olFolderCalendar).Items
+            AppointmentItem newAppointment = (AppointmentItem)Globals.AddIn.Application.Session.GetDefaultFolder(OlDefaultFolders.olFolderCalendar).Items
                 .Find("@SQL=\"http://schemas.microsoft.com/mapi/id/{6ED8DA90-450B-101B-98DA-00AA003F1305}/00030102\" = '"
                 + globalAppointmentID + "' ");
             if (newAppointment != null)
