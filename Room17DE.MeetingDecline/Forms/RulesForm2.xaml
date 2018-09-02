@@ -23,6 +23,9 @@
             <Style.Triggers>
             </Style.Triggers>
         </Style>
+        <Style x:Key="HeaderStyle" TargetType="DataGridColumnHeader">
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        </Style>
     </Window.Resources>
     
     <Grid>
@@ -30,30 +33,36 @@
 
         <DataGrid x:Name="mainGrid" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="Auto"
                   CanUserReorderColumns="False" CanUserResizeColumns="False" CanUserResizeRows="False" CanUserSortColumns="True"
-                  AlternatingRowBackground="#E6F2FA" VerticalScrollBarVisibility="Auto" AutoGenerateColumns="False"
-                  Margin="0 30 0 50" >
+                  CanUserAddRows="False" AlternatingRowBackground="#E6F2FA" VerticalScrollBarVisibility="Auto"
+                  AutoGenerateColumns="False" Margin="0 30 0 50" Background="Transparent" BorderBrush="Transparent"
+                  VerticalGridLinesBrush="Transparent" HeadersVisibility="Column" HorizontalGridLinesBrush="#CDE6F7" >
 
             <DataGrid.Columns>
-                <DataGridTemplateColumn Header="Folder Name" Width="25*" CellStyle="{StaticResource CellStyle}" >
+                <DataGridTemplateColumn Header="Folder Name" Width="25*" CellStyle="{StaticResource CellStyle}"
+                                        HeaderStyle="{StaticResource HeaderStyle}" >
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <TextBlock Text="{Binding FolderName}" ToolTip="{Binding FolderPath, Mode=OneTime}" />
+                            <TextBlock Text="{Binding FolderName}" ToolTip="{Binding FolderPath, Mode=OneTime}"
+                                       HorizontalAlignment="Center" />
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
 
-                <DataGridTemplateColumn Header="Enabled" Width="10*" CellStyle="{StaticResource CellStyle}" >
+                <DataGridTemplateColumn Header="Enabled" Width="10*" CellStyle="{StaticResource CellStyle}"
+                                        HeaderStyle="{StaticResource HeaderStyle}" >
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <CheckBox IsChecked="{Binding IsActive, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                            <CheckBox IsChecked="{Binding IsActive, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                      HorizontalAlignment="Center" />
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
 
-                <DataGridTemplateColumn Header="Action" Width="28*" CellStyle="{StaticResource CellStyle}" >
+                <DataGridTemplateColumn Header="Action" Width="28*" CellStyle="{StaticResource CellStyle}"
+                                        HeaderStyle="{StaticResource HeaderStyle}" >
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <StackPanel Orientation="Horizontal">
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" >
                                 <RadioButton Content="Decline" GroupName="{Binding FolderID}"
                                              IsChecked="{Binding IsDecline, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                                 <RadioButton Content="Tentative" GroupName="{Binding FolderID}" Margin="10 0 0 0" />
@@ -62,15 +71,18 @@
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
 
-                <DataGridTemplateColumn Header="Send Response" Width="17*" CellStyle="{StaticResource CellStyle}" >
+                <DataGridTemplateColumn Header="Send Response" Width="17*" CellStyle="{StaticResource CellStyle}"
+                                        HeaderStyle="{StaticResource HeaderStyle}" >
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <CheckBox IsChecked="{Binding SendResponse, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                            <CheckBox IsChecked="{Binding SendResponse, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                      HorizontalAlignment="Center" />
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
 
-                <DataGridTemplateColumn Header="Response Message" Width="20*" CellStyle="{StaticResource CellStyle}" >
+                <DataGridTemplateColumn Header="Response Message" Width="20*" CellStyle="{StaticResource CellStyle}"
+                                        HeaderStyle="{StaticResource HeaderStyle}" >
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <Button Content="Show" Click="MessageButton_Click" Tag="{Binding FolderID, Mode=OneTime}"
