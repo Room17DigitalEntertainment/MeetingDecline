@@ -20,8 +20,6 @@ namespace Room17DE.MeetingDecline.Forms
         /// <summary>
         /// Event handler to save in Settings the Message associated with current rule
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void OkButton_Click(object sender, EventArgs e)
         {
             // avoid NPE on fresh settings

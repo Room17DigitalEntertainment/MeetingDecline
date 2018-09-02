@@ -34,7 +34,7 @@
         <DataGrid x:Name="mainGrid" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="Auto"
                   CanUserReorderColumns="False" CanUserResizeColumns="False" CanUserResizeRows="False" CanUserSortColumns="True"
                   CanUserAddRows="False" AlternatingRowBackground="#E6F2FA" VerticalScrollBarVisibility="Auto"
-                  AutoGenerateColumns="False" Margin="0 30 0 50" Background="Transparent" BorderBrush="Transparent"
+                  AutoGenerateColumns="False" Margin="0 30 0 40" Background="Transparent" BorderBrush="Transparent"
                   VerticalGridLinesBrush="Transparent" HeadersVisibility="Column" HorizontalGridLinesBrush="#CDE6F7" >
 
             <DataGrid.Columns>
@@ -94,7 +94,11 @@
             </DataGrid.Columns>
         </DataGrid>
 
-        <Button Content="OK" Width="70" Height="30" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0 0 10 10"
-                Click="OKButton_Click" />
+        <StackPanel HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0 0 10 10" Orientation="Horizontal" >
+            <Button Content="OK" Width="71" Height="20" Click="OKButton_Click" FontSize="11" VerticalContentAlignment="Top"
+                    Margin="0 0 10 0" IsDefault="True" />
+            <Button Content="Cancel" Width="71" Height="20" Click="CancelButton_Click" FontSize="11" VerticalContentAlignment="Top"
+                    IsCancel="True" />
+        </StackPanel>
     </Grid>
 </Window>

@@ -1,5 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace Room17DE.MeetingDecline.Forms
 {
@@ -16,9 +17,16 @@ namespace Room17DE.MeetingDecline.Forms
             mainGrid.ItemsSource = Util.DeclineRuleDao.LoadData();
         }
 
+        /// <summary>
+        /// Event handler to show a dialog for add a response message when declining
+        /// </summary>
         private void MessageButton_Click(object sender, RoutedEventArgs e)
         {
-            // TODO: open message here
+            if (!(sender is Button button)) return;
+            if (!(button.Tag is string folderID)) return;
+
+            // send folderID and Message to the input message form
+            new DeclineMessageForm(folderID).ShowDialog();
         }
 
         /// <summary>
@@ -27,6 +35,15 @@ namespace Room17DE.MeetingDecline.Forms
         private void OKButton_Click(object sender, RoutedEventArgs e)
         {
             this.DialogResult = true;
+            this.Close();
+        }
+
+        /// <summary>
+        /// Event handler to close the dialog when pressong Cancel button
+        /// </summary>
+        private void CancelButton_Click(object sender, RoutedEventArgs e)
+        {
+            this.DialogResult = false;
             this.Close();
         }
     }
