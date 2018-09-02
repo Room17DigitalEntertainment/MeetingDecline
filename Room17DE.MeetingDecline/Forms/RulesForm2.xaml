@@ -39,7 +39,7 @@
 
             <DataGrid.Columns>
                 <DataGridTemplateColumn Header="Folder Name" Width="25*" CellStyle="{StaticResource CellStyle}"
-                                        HeaderStyle="{StaticResource HeaderStyle}" >
+                                        HeaderStyle="{StaticResource HeaderStyle}" SortMemberPath="FolderName" >
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <TextBlock Text="{Binding FolderName}" ToolTip="{Binding FolderPath, Mode=OneTime}"
@@ -49,7 +49,7 @@
                 </DataGridTemplateColumn>
 
                 <DataGridTemplateColumn Header="Enabled" Width="10*" CellStyle="{StaticResource CellStyle}"
-                                        HeaderStyle="{StaticResource HeaderStyle}" >
+                                        HeaderStyle="{StaticResource HeaderStyle}" SortMemberPath="IsActive" >
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <CheckBox IsChecked="{Binding IsActive, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
@@ -59,20 +59,21 @@
                 </DataGridTemplateColumn>
 
                 <DataGridTemplateColumn Header="Action" Width="28*" CellStyle="{StaticResource CellStyle}"
-                                        HeaderStyle="{StaticResource HeaderStyle}" >
+                                        HeaderStyle="{StaticResource HeaderStyle}" SortMemberPath="IsDecline" >
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" >
                                 <RadioButton Content="Decline" GroupName="{Binding FolderID}"
                                              IsChecked="{Binding IsDecline, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                                <RadioButton Content="Tentative" GroupName="{Binding FolderID}" Margin="10 0 0 0" />
+                                <RadioButton Content="Tentative" GroupName="{Binding FolderID}" Margin="10 0 0 0"
+                                             IsChecked="{Binding IsNotDecline}" />
                             </StackPanel>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
 
                 <DataGridTemplateColumn Header="Send Response" Width="17*" CellStyle="{StaticResource CellStyle}"
-                                        HeaderStyle="{StaticResource HeaderStyle}" >
+                                        HeaderStyle="{StaticResource HeaderStyle}" SortMemberPath="SendResponse" >
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <CheckBox IsChecked="{Binding SendResponse, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"

@@ -149,6 +149,7 @@ namespace Room17DE.MeetingDecline.Util
         public string FolderPath   { get { return _folderPath;   } set { _folderPath   = value; OnPropertyChanged(); } }
         public bool   IsActive     { get { return _isActive;     } set { _isActive     = value; OnPropertyChanged(); } }
         public bool   IsDecline    { get { return _isDecline;    } set { _isDecline    = value; OnPropertyChanged(); } }
+        public bool   IsNotDecline { get { return !_isDecline;   } set { _isDecline    =!value; OnPropertyChanged(); } }
         public bool   SendResponse { get { return _sendResponse; } set { _sendResponse = value; OnPropertyChanged(); } }
 
         public event PropertyChangedEventHandler PropertyChanged;
