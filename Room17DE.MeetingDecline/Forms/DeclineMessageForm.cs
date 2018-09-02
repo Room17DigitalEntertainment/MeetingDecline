@@ -26,7 +26,7 @@ namespace Room17DE.MeetingDecline.Forms
         {
             // avoid NPE on fresh settings
             if (!Properties.Settings.Default.MeetingDeclineRules.ContainsKey(FolderID))
-                Properties.Settings.Default.MeetingDeclineRules[FolderID] = new Util.DeclineRule();
+                Properties.Settings.Default.MeetingDeclineRules[FolderID] = new Util.DeclineRuleSetting();
 
             // save the message
             Properties.Settings.Default.MeetingDeclineRules[FolderID].Message = messageBox.Text;

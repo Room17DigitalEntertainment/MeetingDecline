@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.Collections.ObjectModel;
+using System.Windows;
 
 namespace Room17DE.MeetingDecline.Forms
 {
@@ -12,7 +13,7 @@ namespace Room17DE.MeetingDecline.Forms
             InitializeComponent();
 
             // load and bind data
-            mainGrid.ItemsSource = new Util.DeclineRuleController().LoadData();
+            mainGrid.ItemsSource = Util.DeclineRuleDao.LoadData();
         }
 
         private void MessageButton_Click(object sender, RoutedEventArgs e)

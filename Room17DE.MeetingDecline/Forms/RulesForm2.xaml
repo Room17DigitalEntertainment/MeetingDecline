@@ -37,7 +37,7 @@
                 <DataGridTemplateColumn Header="Folder Name" Width="25*" CellStyle="{StaticResource CellStyle}" >
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <TextBlock Text="{Binding FolderName}" ToolTip="{Binding FolderPath}" />
+                            <TextBlock Text="{Binding FolderName}" ToolTip="{Binding FolderPath, Mode=OneTime}" />
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
@@ -45,7 +45,7 @@
                 <DataGridTemplateColumn Header="Enabled" Width="10*" CellStyle="{StaticResource CellStyle}" >
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <CheckBox IsChecked="{Binding IsActive, Mode=TwoWay}" />
+                            <CheckBox IsChecked="{Binding IsActive, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
@@ -54,8 +54,9 @@
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal">
-                                <RadioButton Content="Decline" GroupName="action" IsChecked="{Binding IsDecline, Mode=TwoWay}" />
-                                <RadioButton Content="Tentative" GroupName="action" Margin="10 0 0 0" />
+                                <RadioButton Content="Decline" GroupName="{Binding FolderID}"
+                                             IsChecked="{Binding IsDecline, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                <RadioButton Content="Tentative" GroupName="{Binding FolderID}" Margin="10 0 0 0" />
                             </StackPanel>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
@@ -64,7 +65,7 @@
                 <DataGridTemplateColumn Header="Send Response" Width="17*" CellStyle="{StaticResource CellStyle}" >
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <CheckBox IsChecked="{Binding SendResponse, Mode=TwoWay}" />
+                            <CheckBox IsChecked="{Binding SendResponse, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
@@ -72,7 +73,7 @@
                 <DataGridTemplateColumn Header="Response Message" Width="20*" CellStyle="{StaticResource CellStyle}" >
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Button Content="Show" Click="MessageButton_Click" Tag="{Binding FolderID}" 
+                            <Button Content="Show" Click="MessageButton_Click" Tag="{Binding FolderID, Mode=OneTime}"
                                     Background="Transparent" BorderBrush="Transparent" />
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
@@ -80,6 +81,7 @@
             </DataGrid.Columns>
         </DataGrid>
 
-        <Button Content="OK" Width="70" Height="30" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0 0 10 10" Click="OKButton_Click" />
+        <Button Content="OK" Width="70" Height="30" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0 0 10 10"
+                Click="OKButton_Click" />
     </Grid>
 </Window>

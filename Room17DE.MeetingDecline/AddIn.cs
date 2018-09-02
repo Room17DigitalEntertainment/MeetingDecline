@@ -26,7 +26,7 @@ namespace Room17DE.MeetingDecline
             // check if we have settings
             if (Properties.Settings.Default.MeetingDeclineRules == null)
             {
-                Properties.Settings.Default.MeetingDeclineRules = new Dictionary<string, DeclineRule>();
+                Properties.Settings.Default.MeetingDeclineRules = new Dictionary<string, DeclineRuleSetting>();
                 Properties.Settings.Default.Save();
             }
             if (Properties.Settings.Default.LastMailCheck == null)

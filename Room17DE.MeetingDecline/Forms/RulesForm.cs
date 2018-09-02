@@ -11,7 +11,7 @@ namespace Room17DE.Forms.MeetingDecline
 {
     public partial class RulesForm : Form
     {
-        private IDictionary<string, DeclineRule> Rules;
+        private IDictionary<string, DeclineRuleSetting> Rules;
         private readonly Padding Padding1 = new Padding(3, 4, 3, 3);
         private readonly Point Point1 = new Point(3, 3);
         private Size Size1;
@@ -111,9 +111,9 @@ namespace Room17DE.Forms.MeetingDecline
                         // get folder setting and show it
                         if (Rules.ContainsKey(folder.EntryID))
                         {
-                            DeclineRule rule = Rules[folder.EntryID];
+                            DeclineRuleSetting rule = Rules[folder.EntryID];
                             isActive = rule.IsActive;
-                            sendNotification = rule.SendNotification;
+                            sendNotification = rule.SendResponse;
                             isDecline = rule.Response == OlMeetingResponse.olMeetingDeclined;
                         }
 
@@ -201,14 +201,14 @@ namespace Room17DE.Forms.MeetingDecline
                     Rules[folder.EntryID].IsActive = enabledCheck.Checked;
                     Rules[folder.EntryID].Response =
                         declineButton.Checked ? OlMeetingResponse.olMeetingDeclined : OlMeetingResponse.olMeetingTentative;
-                    Rules[folder.EntryID].SendNotification = sendCheck.Checked;
+                    Rules[folder.EntryID].SendResponse = sendCheck.Checked;
                 }
                 else
-                    Rules[folder.EntryID] = new DeclineRule()
+                    Rules[folder.EntryID] = new DeclineRuleSetting()
                     {
                         IsActive = enabledCheck.Checked,
                         Response = declineButton.Checked ? OlMeetingResponse.olMeetingDeclined : OlMeetingResponse.olMeetingTentative,
-                        SendNotification = sendCheck.Checked
+                        SendResponse = sendCheck.Checked
                     };
             }
 
