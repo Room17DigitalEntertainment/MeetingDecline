@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Room17DE.MeetingDecline.Forms"
-             xmlns:Util="clr-namespace:Room17DE.MeetingDecline.Util" x:Class="Room17DE.MeetingDecline.Forms.RulesForm2"
+             xmlns:Util="clr-namespace:Room17DE.MeetingDecline.Util" x:Class="Room17DE.MeetingDecline.Forms.RulesForm"
              mc:Ignorable="d" 
              Height="450" Width="600"
              d:DesignHeight="450" d:DesignWidth="600" Icon="../Resources/icon.ico" Title="Meeting Decline Settings">

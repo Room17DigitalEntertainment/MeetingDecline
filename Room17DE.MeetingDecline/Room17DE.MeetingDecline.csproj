@@ -193,14 +193,8 @@
     <Compile Include="Forms\DeclineMessageForm.Designer.cs">
       <DependentUpon>DeclineMessageForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\RulesForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\RulesForm.Designer.cs">
-      <DependentUpon>RulesForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\RulesForm2.xaml.cs">
-      <DependentUpon>RulesForm2.xaml</DependentUpon>
+    <Compile Include="Forms\RulesForm.xaml.cs">
+      <DependentUpon>RulesForm.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
@@ -211,9 +205,6 @@
     <Compile Include="Util\NewMailPeriodicTask.cs" />
     <EmbeddedResource Include="Forms\DeclineMessageForm.resx">
       <DependentUpon>DeclineMessageForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\RulesForm.resx">
-      <DependentUpon>RulesForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -258,7 +249,7 @@
     <Content Include="Resources\text.ico" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="Forms\RulesForm2.xaml">
+    <Page Include="Forms\RulesForm.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

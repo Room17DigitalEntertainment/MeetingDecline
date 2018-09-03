@@ -7,9 +7,9 @@ namespace Room17DE.MeetingDecline.Forms
     /// <summary>
     /// Interaction logic for RulesForm2.xaml
     /// </summary>
-    public partial class RulesForm2 : Window
+    public partial class RulesForm : Window
     {
-        public RulesForm2()
+        public RulesForm()
         {
             InitializeComponent();
 
