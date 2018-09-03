@@ -20,13 +20,11 @@ namespace Room17DE.MeetingDecline.Forms
         /// <summary>
         /// Event handler to save in Settings the Message associated with current rule
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void OkButton_Click(object sender, EventArgs e)
         {
             // avoid NPE on fresh settings
             if (!Properties.Settings.Default.MeetingDeclineRules.ContainsKey(FolderID))
-                Properties.Settings.Default.MeetingDeclineRules[FolderID] = new Util.DeclineRule();
+                Properties.Settings.Default.MeetingDeclineRules[FolderID] = new Util.DeclineRuleSetting();
 
             // save the message
             Properties.Settings.Default.MeetingDeclineRules[FolderID].Message = messageBox.Text;

@@ -33,7 +33,7 @@ namespace Room17DE.MeetingDecline
             this.ribbon = ribbonUI;
         }
 
-        public void OnButtonClick(Office.IRibbonControl control) => new Room17DE.Forms.MeetingDecline.RulesForm().ShowDialog();
+        public void OnButtonClick(Office.IRibbonControl control) => new Forms.RulesForm().ShowDialog();
 
         public Bitmap GetCustomImage(Office.IRibbonControl control) => Properties.Resources.MeetingDeclineImage;
 

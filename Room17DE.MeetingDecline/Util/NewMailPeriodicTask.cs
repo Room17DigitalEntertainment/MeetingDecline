@@ -29,7 +29,7 @@ namespace Room17DE.MeetingDecline.Util
             bool save = false;
 
             // get folders from rules
-            IDictionary<string, DeclineRule> rules = Properties.Settings.Default.MeetingDeclineRules;
+            IDictionary<string, DeclineRuleSetting> rules = Properties.Settings.Default.MeetingDeclineRules;
             IDictionary<string, DateTime> lastCheckedFolders = Properties.Settings.Default.LastMailCheck;
 
             foreach (string folderID in rules.Keys)
@@ -98,7 +98,7 @@ namespace Room17DE.MeetingDecline.Util
         /// </summary>
         /// <param name="meetingItem">The meeting that needs processing</param>
         /// <param name="rule">the associated decline rule for the folder of this meetingItem</param>
-        private static void ProcessRule(MeetingItem meetingItem, DeclineRule rule)
+        private static void ProcessRule(MeetingItem meetingItem, DeclineRuleSetting rule)
         {
             // if it's a Cancelation, delete it from calendar
             if (meetingItem.Class == OlObjectClass.olMeetingCancellation)
@@ -113,7 +113,7 @@ namespace Room17DE.MeetingDecline.Util
             string globalAppointmentID = appointment.GlobalAppointmentID;
 
             // optional, send notification back to sender
-            appointment.ResponseRequested &= rule.SendNotification;
+            appointment.ResponseRequested &= rule.SendResponse;
 
             // set decline to the meeting
             MeetingItem responseMeeting = appointment.Respond(rule.Response, true);
@@ -134,7 +134,7 @@ namespace Room17DE.MeetingDecline.Util
 
             // after Sending the response, sometimes the appointment doesn't get deleted from calendar,
             // but appointmnent could become and invalid object, so we need to search for it and delete it
-            AppointmentItem newAppointment = Globals.AddIn.Application.Session.GetDefaultFolder(OlDefaultFolders.olFolderCalendar).Items
+            AppointmentItem newAppointment = (AppointmentItem)Globals.AddIn.Application.Session.GetDefaultFolder(OlDefaultFolders.olFolderCalendar).Items
                 .Find("@SQL=\"http://schemas.microsoft.com/mapi/id/{6ED8DA90-450B-101B-98DA-00AA003F1305}/00030102\" = '"
                 + globalAppointmentID + "' ");
             if (newAppointment != null)

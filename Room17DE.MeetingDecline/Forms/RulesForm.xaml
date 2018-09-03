@@ -1,0 +1,104 @@
+﻿<Window
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Room17DE.MeetingDecline.Forms"
+             xmlns:Util="clr-namespace:Room17DE.MeetingDecline.Util" x:Class="Room17DE.MeetingDecline.Forms.RulesForm"
+             mc:Ignorable="d" 
+             Height="450" Width="600"
+             d:DesignHeight="450" d:DesignWidth="600" Icon="../Resources/icon.ico" Title="Meeting Decline Settings">
+
+    <Window.Resources>
+        <Style x:Key="CellStyle" TargetType="{x:Type DataGridCell}">
+            <Setter Property="Foreground" Value="Black" />
+            <Style.Triggers>
+                <Trigger Property="IsSelected" Value="True">
+                    <Setter Property="Background" Value="{x:Null}" />
+                    <Setter Property="BorderBrush" Value="{x:Null}" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="CellCheckBoxStyle" BasedOn="{StaticResource CellStyle}" TargetType="{x:Type CheckBox}">
+            <Style.Triggers>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="HeaderStyle" TargetType="DataGridColumnHeader">
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        </Style>
+    </Window.Resources>
+    
+    <Grid>
+        <Label Content="Folders to auto decline incoming meetings:" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top" />
+
+        <DataGrid x:Name="mainGrid" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="Auto"
+                  CanUserReorderColumns="False" CanUserResizeColumns="False" CanUserResizeRows="False" CanUserSortColumns="True"
+                  CanUserAddRows="False" AlternatingRowBackground="#E6F2FA" VerticalScrollBarVisibility="Auto"
+                  AutoGenerateColumns="False" Margin="0 30 0 40" Background="Transparent" BorderBrush="Transparent"
+                  VerticalGridLinesBrush="Transparent" HeadersVisibility="Column" HorizontalGridLinesBrush="#CDE6F7" >
+
+            <DataGrid.Columns>
+                <DataGridTemplateColumn Header="Folder Name" Width="25*" CellStyle="{StaticResource CellStyle}"
+                                        HeaderStyle="{StaticResource HeaderStyle}" SortMemberPath="FolderName" >
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding FolderName}" ToolTip="{Binding FolderPath, Mode=OneTime}"
+                                       HorizontalAlignment="Center" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTemplateColumn Header="Enabled" Width="10*" CellStyle="{StaticResource CellStyle}"
+                                        HeaderStyle="{StaticResource HeaderStyle}" SortMemberPath="IsActive" >
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <CheckBox IsChecked="{Binding IsActive, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                      HorizontalAlignment="Center" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTemplateColumn Header="Action" Width="28*" CellStyle="{StaticResource CellStyle}"
+                                        HeaderStyle="{StaticResource HeaderStyle}" SortMemberPath="IsDecline" >
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" >
+                                <RadioButton Content="Decline" GroupName="{Binding FolderID}"
+                                             IsChecked="{Binding IsDecline, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                <RadioButton Content="Tentative" GroupName="{Binding FolderID}" Margin="10 0 0 0"
+                                             IsChecked="{Binding IsNotDecline}" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTemplateColumn Header="Send Response" Width="17*" CellStyle="{StaticResource CellStyle}"
+                                        HeaderStyle="{StaticResource HeaderStyle}" SortMemberPath="SendResponse" >
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <CheckBox IsChecked="{Binding SendResponse, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                      HorizontalAlignment="Center" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTemplateColumn Header="Response Message" Width="20*" CellStyle="{StaticResource CellStyle}"
+                                        HeaderStyle="{StaticResource HeaderStyle}" >
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Content="Show" Click="MessageButton_Click" Tag="{Binding FolderID, Mode=OneTime}"
+                                    Background="Transparent" BorderBrush="Transparent" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <StackPanel HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0 0 10 10" Orientation="Horizontal" >
+            <Button Content="OK" Width="71" Height="20" Click="OKButton_Click" FontSize="11" VerticalContentAlignment="Top"
+                    Margin="0 0 10 0" IsDefault="True" />
+            <Button Content="Cancel" Width="71" Height="20" Click="CancelButton_Click" FontSize="11" VerticalContentAlignment="Top"
+                    IsCancel="True" />
+        </StackPanel>
+    </Grid>
+</Window>
