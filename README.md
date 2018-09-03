@@ -29,8 +29,10 @@ To uninstall, go to `Control Panel` -> `Programs` -> `Uninstall a program` and u
 - Right click on any folder and select `Meeting Decline`
 
   ![main](screenshots/main.png?raw=true "main")
+  
+- Click on any column header to sort its contents
 
-  _Note: If you have many folders in your inbox, it will take a bit until the list is populated._
+  ![sort](screenshots/sort.png?raw=true "sort")
 
 - Hover your mouse over the folder name to see it's full path:
 
@@ -40,7 +42,7 @@ To uninstall, go to `Control Panel` -> `Programs` -> `Uninstall a program` and u
 
   ![enable](screenshots/enable.png?raw=true "enable")
 
-- Choose what action needs to be taken when receiving the meeting, between `Decline` or `Tentative`:
+- Optional, choose what action needs to be taken when receiving the meeting, between `Decline` or `Tentative`:
 
   ![choose](screenshots/choose.png?raw=true "choose")
 
@@ -58,7 +60,8 @@ To uninstall, go to `Control Panel` -> `Programs` -> `Uninstall a program` and u
 
     - Click `OK` to save it, or `Cancel` to revert changes.
 
-- That's it! Click `OK` to save everything or `Cancel` to discard changes. The application will start listening to new emails and decline them according to your rules.
+- That's it! The application will start listening to new emails and decline them according to your rules.
+
   ![finish](screenshots/finish.png?raw=true "finish")
   
 ### Submit an issue
